@@ -19,6 +19,7 @@ data class OrganizationModel(
 
     fun toOrganization(): Organization {
         return Organization(
+            id = id,
             name = name,
             activity = activity
         )

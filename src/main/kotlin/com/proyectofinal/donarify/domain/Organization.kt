@@ -4,6 +4,7 @@ import com.proyectofinal.donarify.dto.OrganizationDto
 import com.proyectofinal.donarify.repository.model.OrganizationModel
 
 data class Organization(
+    val id: Long?,
     val name: String,
     val activity: String
 ) {
@@ -16,6 +17,7 @@ data class Organization(
 
     fun toOrganizationDto(): OrganizationDto {
         return OrganizationDto(
+            id = id,
             name = name,
             activity = activity
         )
