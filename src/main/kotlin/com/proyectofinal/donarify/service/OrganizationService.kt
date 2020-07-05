@@ -15,4 +15,8 @@ class OrganizationService(private val repository: OrganizationRepository) {
     fun listOrganizations(): List<Organization> {
         return repository.findAll().map { it.toOrganization() }
     }
+
+    fun getOrganization(id: Long): Organization {
+        return repository.getOne(id).toOrganization()
+    }
 }
