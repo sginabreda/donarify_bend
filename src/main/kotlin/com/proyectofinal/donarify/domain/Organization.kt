@@ -6,20 +6,19 @@ import com.proyectofinal.donarify.repository.model.OrganizationModel
 data class Organization(
     val id: Long?,
     val name: String,
-    val activity: String
+    val activity: String,
+    val posts: List<Post> = listOf()
 ) {
     fun toOrganizationModel(): OrganizationModel {
-        return OrganizationModel(
-            name = name,
-            activity = activity
-        )
+        return OrganizationModel.of(id, name, activity)
     }
 
     fun toOrganizationDto(): OrganizationDto {
         return OrganizationDto(
             id = id,
             name = name,
-            activity = activity
+            activity = activity,
+            posts = posts.map { it.toPostDto() }
         )
     }
 }

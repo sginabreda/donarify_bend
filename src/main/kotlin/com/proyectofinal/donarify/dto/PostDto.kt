@@ -6,9 +6,10 @@ data class PostDto(
     val id: Long?,
     val activity: String,
     val address: String,
-    val type: String
+    val type: String,
+    val organizationId: Long
 ) {
     fun toPost(): Post {
-        return Post(id, activity, address, type)
+        return Post(id, activity, address, type, organizationId)
     }
 }

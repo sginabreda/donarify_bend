@@ -8,10 +8,11 @@ import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
 
 @Service
-class PostService(private val repository: PostRepository) {
+class PostService(private val repository: PostRepository, private val orgService: OrganizationService) {
 
     fun createPost(post: Post): String {
-        repository.save(post.toPostModel())
+        val organization = orgService.getOrganization(post.organizationId)
+        repository.save(post.toPostModel(organization))
         return "Post created!"
     }
 
