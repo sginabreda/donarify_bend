@@ -1,18 +1,15 @@
 package com.proyectofinal.donarify.dto
 
-import com.proyectofinal.donarify.domain.Organization
-
 data class OrganizationDto(
-    val id: Long?,
+    val id: Long,
     val name: String,
-    val activity: String,
-    val posts: List<PostDto>? = listOf()
-) {
-    fun toOrganization(): Organization {
-        return Organization(
-            id = id,
-            name = name,
-            activity = activity
-        )
-    }
-}
+    val description: String,
+    val posts: List<PostDto>? = listOf(),
+    val address: String,
+    val activityType: String,
+    val url: String?,
+    val facebookUrl: String?,
+    val twitterUrl: String?,
+    val instagramUrl: String?,
+    val email: String
+)

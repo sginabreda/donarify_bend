@@ -5,16 +5,27 @@ import com.proyectofinal.donarify.repository.model.PostModel
 
 data class Post(
     val id: Long?,
-    val activity: String,
+    val description: String,
     val address: String,
     val type: String,
-    val organizationId: Long
+    val organizationId: Long,
+    val isTemporal: Boolean,
+    val isFullTime: Boolean,
+    val isVirtual: Boolean
 ) {
     fun toPostModel(organization: Organization): PostModel {
-        return PostModel(activity, address, type, organization.toOrganizationModel())
+        return PostModel(
+            description,
+            address,
+            type,
+            organization.toOrganizationModel(),
+            isTemporal,
+            isFullTime,
+            isVirtual
+        )
     }
 
     fun toPostDto(): PostDto {
-        return PostDto(id, activity, address, type, organizationId)
+        return PostDto(id, description, address, type, organizationId)
     }
 }

@@ -1,6 +1,8 @@
 package com.proyectofinal.donarify.dto
 
-data class PostDto(
+import com.proyectofinal.donarify.domain.Post
+
+data class PostRequestDto(
     val id: Long?,
     val description: String,
     val address: String,
@@ -9,4 +11,8 @@ data class PostDto(
     val isTemporal: Boolean,
     val isFullTime: Boolean,
     val isVirtual: Boolean
-)
+) {
+    fun toPost(): Post {
+        return Post(id, description, address, type, organizationId, isTemporal, isFullTime, isVirtual)
+    }
+}

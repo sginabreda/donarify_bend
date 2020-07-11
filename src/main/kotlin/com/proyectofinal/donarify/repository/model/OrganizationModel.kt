@@ -12,13 +12,29 @@ import javax.persistence.OneToMany
 import javax.persistence.Table
 
 @Entity
-@Table(name = "organizations", schema = "public")
+@Table(name = "organizations", schema = "donarify")
 data class OrganizationModel(
+    @Column(name = "name")
     var name: String,
-    var activity: String,
+    @Column(name = "description")
+    var description: String,
     @OneToMany(mappedBy = "organization", fetch = FetchType.LAZY)
     @JsonManagedReference
-    var posts: List<PostModel> = listOf()
+    var posts: List<PostModel> = listOf(),
+    @Column(name = "address")
+    var address: String,
+    @Column(name = "activity_type")
+    var activityType: String,
+    @Column(name = "url")
+    var url: String?,
+    @Column(name = "facebook_url")
+    var facebookUrl: String?,
+    @Column(name = "twitter_url")
+    var twitterUrl: String?,
+    @Column(name = "instagram_url")
+    var instagramUrl: String?,
+    @Column(name = "email")
+    var email: String
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,14 +45,42 @@ data class OrganizationModel(
         return Organization(
             id = id,
             name = name,
-            activity = activity,
-            posts = posts.map { it.toPost() }
+            description = description,
+            posts = posts.map { it.toPost() },
+            address = address,
+            activityType = activityType,
+            url = url,
+            facebookUrl = facebookUrl,
+            twitterUrl = twitterUrl,
+            instagramUrl = instagramUrl,
+            email = email
         )
     }
 
     companion object {
-        fun of(id: Long?, name: String, activity: String): OrganizationModel {
-            val org = OrganizationModel(name, activity)
+        fun of(
+            id: Long?,
+            name: String,
+            description: String,
+            address: String,
+            activityType: String,
+            url: String?,
+            facebookUrl: String?,
+            twitterUrl: String?,
+            instagramUrl: String?,
+            email: String
+        ): OrganizationModel {
+            val org = OrganizationModel(
+                name = name,
+                description = description,
+                address = address,
+                activityType = activityType,
+                url = url,
+                facebookUrl = facebookUrl,
+                twitterUrl = twitterUrl,
+                instagramUrl = instagramUrl,
+                email = email
+            )
             id?.let { org.id = id }
             return org
         }
