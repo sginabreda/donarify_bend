@@ -26,6 +26,6 @@ data class Post(
     }
 
     fun toPostDto(): PostDto {
-        return PostDto(id, description, address, type, organizationId)
+        return PostDto(id, description, address, type, organizationId, isTemporal, isFullTime, isVirtual)
     }
 }
