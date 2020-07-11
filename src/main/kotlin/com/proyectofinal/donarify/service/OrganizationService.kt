@@ -6,7 +6,6 @@ import com.proyectofinal.donarify.repository.OrganizationRepository
 import com.proyectofinal.donarify.repository.model.OrganizationModel
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
-import javax.persistence.EntityNotFoundException
 
 @Service
 class OrganizationService(private val repository: OrganizationRepository) {
@@ -27,7 +26,7 @@ class OrganizationService(private val repository: OrganizationRepository) {
 
     fun modifyOrganization(id: Long, organization: Organization): String {
         val organizationModel = getOneOrThrowException(id)
-        organizationModel.activity = organization.activity
+        organizationModel.description = organization.description
         organizationModel.name = organization.name
         repository.save(organizationModel)
         return "Organization updated!"

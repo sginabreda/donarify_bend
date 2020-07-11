@@ -1,5 +1,6 @@
 package com.proyectofinal.donarify.controller
 
+import com.proyectofinal.donarify.dto.OrganizationRequestDto
 import com.proyectofinal.donarify.dto.OrganizationDto
 import com.proyectofinal.donarify.dto.OrganizationListDto
 import com.proyectofinal.donarify.mapper.toOrganizationListDto
@@ -20,7 +21,7 @@ class OrganizationController(private val service: OrganizationService) {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    fun createOrganization(@RequestBody organizationDto: OrganizationDto): String {
+    fun createOrganization(@RequestBody organizationDto: OrganizationRequestDto): String {
         return service.createOrganization(organizationDto.toOrganization())
     }
 
@@ -38,7 +39,7 @@ class OrganizationController(private val service: OrganizationService) {
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    fun modifyOrganization(@PathVariable id: Long, @RequestBody organizationDto: OrganizationDto): String {
+    fun modifyOrganization(@PathVariable id: Long, @RequestBody organizationDto: OrganizationRequestDto): String {
         return service.modifyOrganization(id, organizationDto.toOrganization())
     }
 }

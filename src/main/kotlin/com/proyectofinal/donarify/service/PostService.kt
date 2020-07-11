@@ -27,8 +27,7 @@ class PostService(private val repository: PostRepository, private val orgService
 
     fun modifyPost(id: Long, post: Post): String {
         val postModel = getOneOrThrowException(id)
-        postModel.activity = post.activity
-        postModel.address = post.address
+        modifyAttributes(post, postModel)
         repository.save(postModel)
         return "Post updated!"
     }
@@ -41,5 +40,13 @@ class PostService(private val repository: PostRepository, private val orgService
             throw RequestException("Post not found", "not.found", HttpStatus.NOT_FOUND.value())
         }
         return post
+    }
+
+    private fun modifyAttributes(post: Post, postModel: PostModel) {
+        postModel.description = post.description
+        postModel.address = post.address
+        postModel.isFullTime = post.isFullTime
+        postModel.isTemporal = post.isTemporal
+        postModel.isVirtual = post.isVirtual
     }
 }

@@ -2,6 +2,7 @@ package com.proyectofinal.donarify.controller
 
 import com.proyectofinal.donarify.dto.PostDto
 import com.proyectofinal.donarify.dto.PostListDto
+import com.proyectofinal.donarify.dto.PostRequestDto
 import com.proyectofinal.donarify.mapper.toPostListDto
 import com.proyectofinal.donarify.service.PostService
 import org.springframework.http.HttpStatus
@@ -20,7 +21,7 @@ class PostController(private val service: PostService) {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    fun createPost(@RequestBody postDto: PostDto): String {
+    fun createPost(@RequestBody postDto: PostRequestDto): String {
         return service.createPost(postDto.toPost())
     }
 
@@ -38,7 +39,7 @@ class PostController(private val service: PostService) {
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    fun modifyPost(@PathVariable id: Long, @RequestBody body: PostDto): String {
-        return service.modifyPost(id, body.toPost())
+    fun modifyPost(@PathVariable id: Long, @RequestBody postDto: PostRequestDto): String {
+        return service.modifyPost(id, postDto.toPost())
     }
 }
