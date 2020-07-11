@@ -26,8 +26,7 @@ class OrganizationService(private val repository: OrganizationRepository) {
 
     fun modifyOrganization(id: Long, organization: Organization): String {
         val organizationModel = getOneOrThrowException(id)
-        organizationModel.description = organization.description
-        organizationModel.name = organization.name
+        modifyAttributes(organization, organizationModel)
         repository.save(organizationModel)
         return "Organization updated!"
     }
@@ -40,5 +39,17 @@ class OrganizationService(private val repository: OrganizationRepository) {
             throw RequestException("Organization not found", "not.found", HttpStatus.NOT_FOUND.value())
         }
         return org
+    }
+
+    private fun modifyAttributes(organization: Organization, organizationModel: OrganizationModel) {
+        organizationModel.name = organization.name
+        organizationModel.description = organization.description
+        organizationModel.address = organization.address
+        organizationModel.activityType = organization.activityType
+        organizationModel.url = organization.url
+        organizationModel.facebookUrl = organization.facebookUrl
+        organizationModel.twitterUrl = organization.twitterUrl
+        organizationModel.instagramUrl = organization.instagramUrl
+        organizationModel.email = organization.email
     }
 }

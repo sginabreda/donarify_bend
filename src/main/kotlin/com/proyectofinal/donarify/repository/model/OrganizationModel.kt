@@ -12,7 +12,7 @@ import javax.persistence.OneToMany
 import javax.persistence.Table
 
 @Entity
-@Table(name = "organizations", schema = "donarify")
+@Table(name = "organizations", schema = "public")
 data class OrganizationModel(
     @Column(name = "name")
     var name: String,

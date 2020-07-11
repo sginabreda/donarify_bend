@@ -13,7 +13,7 @@ import javax.persistence.ManyToOne
 import javax.persistence.Table
 
 @Entity
-@Table(name = "posts", schema = "donarify")
+@Table(name = "posts", schema = "public")
 data class PostModel(
     @Column(name = "description")
     var description: String,
