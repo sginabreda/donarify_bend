@@ -34,9 +34,28 @@ data class PostModel(
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long = 0
+    var id: Long = 0
 
     fun toPost(): Post {
         return Post(id, description, address, type, organization.id, isTemporal, isFullTime, isVirtual)
+    }
+
+    companion object {
+        fun of(
+            id: Long?,
+            description: String,
+            address: String,
+            type: String,
+            organization: OrganizationModel,
+            isTemporal: Boolean,
+            isFullTime: Boolean,
+            isVirtual: Boolean
+        ): PostModel {
+            val post = PostModel(
+                description, address, type, organization, isTemporal, isFullTime, isVirtual
+            )
+            id?.run { post.id = id }
+            return post
+        }
     }
 }

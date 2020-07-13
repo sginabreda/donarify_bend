@@ -14,7 +14,8 @@ data class Post(
     val isVirtual: Boolean
 ) {
     fun toPostModel(organization: Organization): PostModel {
-        return PostModel(
+        return PostModel.of(
+            id,
             description,
             address,
             type,
