@@ -14,9 +14,9 @@ data class Organization(
     val twitterUrl: String?,
     val instagramUrl: String?,
     val email: String,
-    val posts: List<Post> = listOf()
+    val jobs: List<JobOffer> = listOf()
 ) {
-    fun toOrganizationModel(): OrganizationModel {
+    fun toModel(): OrganizationModel {
         return OrganizationModel.of(
             id,
             name,
@@ -31,12 +31,12 @@ data class Organization(
         )
     }
 
-    fun toOrganizationDto(): OrganizationDto {
+    fun toDto(): OrganizationDto {
         return OrganizationDto(
             id = id!!,
             name = name,
             description = description,
-            posts = posts.map { it.toPostDto() },
+            jobs = jobs.map { it.toDto() },
             address = address,
             activityType = activityType,
             url = url,

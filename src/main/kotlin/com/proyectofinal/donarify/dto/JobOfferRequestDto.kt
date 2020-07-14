@@ -1,18 +1,17 @@
 package com.proyectofinal.donarify.dto
 
-import com.proyectofinal.donarify.domain.Post
+import com.proyectofinal.donarify.domain.JobOffer
 
-data class PostRequestDto(
+data class JobOfferRequestDto(
     val id: Long?,
     val description: String,
     val address: String,
-    val type: String,
     val organizationId: Long,
     val isTemporal: Boolean,
     val isFullTime: Boolean,
     val isVirtual: Boolean
 ) {
-    fun toPost(): Post {
-        return Post(id, description, address, type, organizationId, isTemporal, isFullTime, isVirtual)
+    fun toDomain(): JobOffer {
+        return JobOffer(id, description, address, organizationId, isTemporal, isFullTime, isVirtual)
     }
 }

@@ -20,7 +20,7 @@ data class OrganizationModel(
     var description: String,
     @OneToMany(mappedBy = "organization", fetch = FetchType.LAZY)
     @JsonManagedReference
-    var posts: List<PostModel> = listOf(),
+    var jobs: List<JobOfferModel> = listOf(),
     @Column(name = "address")
     var address: String,
     @Column(name = "activity_type")
@@ -46,7 +46,7 @@ data class OrganizationModel(
             id = id,
             name = name,
             description = description,
-            posts = posts.map { it.toPost() },
+            jobs = jobs.map { it.toDomain() },
             address = address,
             activityType = activityType,
             url = url,

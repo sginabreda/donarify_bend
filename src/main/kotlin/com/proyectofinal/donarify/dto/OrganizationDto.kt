@@ -4,7 +4,7 @@ data class OrganizationDto(
     val id: Long,
     val name: String,
     val description: String,
-    val posts: List<PostDto>? = listOf(),
+    val jobs: List<JobOfferDto>? = listOf(),
     val address: String,
     val activityType: String,
     val url: String?,

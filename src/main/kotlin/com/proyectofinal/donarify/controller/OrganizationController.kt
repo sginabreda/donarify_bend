@@ -34,7 +34,7 @@ class OrganizationController(private val service: OrganizationService) {
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     fun getOrganization(@PathVariable id: Long): OrganizationDto {
-        return service.getOrganization(id).toOrganizationDto()
+        return service.getOrganization(id).toDto()
     }
 
     @PutMapping("/{id}")

@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service
 class OrganizationService(private val repository: OrganizationRepository) {
 
     fun createOrganization(organization: Organization): String {
-        repository.save(organization.toOrganizationModel())
+        repository.save(organization.toModel())
         return "Organization created!"
     }
 

@@ -1,7 +1,7 @@
 package com.proyectofinal.donarify.repository.model
 
 import com.fasterxml.jackson.annotation.JsonBackReference
-import com.proyectofinal.donarify.domain.Post
+import com.proyectofinal.donarify.domain.JobOffer
 import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.FetchType
@@ -13,14 +13,12 @@ import javax.persistence.ManyToOne
 import javax.persistence.Table
 
 @Entity
-@Table(name = "posts", schema = "public")
-data class PostModel(
+@Table(name = "job_offers", schema = "public")
+data class JobOfferModel(
     @Column(name = "description")
     var description: String,
     @Column(name = "address")
     var address: String,
-    @Column(name = "type")
-    var type: String,
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
     @JoinColumn(name = "organization_id", nullable = false)
@@ -36,8 +34,8 @@ data class PostModel(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long = 0
 
-    fun toPost(): Post {
-        return Post(id, description, address, type, organization.id, isTemporal, isFullTime, isVirtual)
+    fun toDomain(): JobOffer {
+        return JobOffer(id, description, address, organization.id, isTemporal, isFullTime, isVirtual)
     }
 
     companion object {
@@ -45,17 +43,16 @@ data class PostModel(
             id: Long?,
             description: String,
             address: String,
-            type: String,
             organization: OrganizationModel,
             isTemporal: Boolean,
             isFullTime: Boolean,
             isVirtual: Boolean
-        ): PostModel {
-            val post = PostModel(
-                description, address, type, organization, isTemporal, isFullTime, isVirtual
+        ): JobOfferModel {
+            val jobOffer = JobOfferModel(
+                description, address, organization, isTemporal, isFullTime, isVirtual
             )
-            id?.run { post.id = id }
-            return post
+            id?.run { jobOffer.id = id }
+            return jobOffer
         }
     }
 }

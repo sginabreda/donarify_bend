@@ -2,11 +2,10 @@ package com.proyectofinal.donarify.dto
 
 import com.fasterxml.jackson.annotation.JsonProperty
 
-data class PostDto(
+data class JobOfferDto(
     val id: Long?,
     val description: String,
     val address: String,
-    val type: String,
     val organizationId: Long,
     @JsonProperty(value = "isTemporal")
     val isTemporal: Boolean,
