@@ -21,6 +21,9 @@ data class OrganizationModel(
     @OneToMany(mappedBy = "organization", fetch = FetchType.LAZY)
     @JsonManagedReference
     var jobs: List<JobOfferModel> = listOf(),
+    @OneToMany(mappedBy = "organization", fetch = FetchType.LAZY)
+    @JsonManagedReference
+    var volunteerings: List<VolunteeringModel> = listOf(),
     @Column(name = "address")
     var address: String,
     @Column(name = "activity_type")
