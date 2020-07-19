@@ -11,7 +11,7 @@ import org.springframework.web.context.request.WebRequest
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler
 
 @ControllerAdvice
-class ExceptionHandler: ResponseEntityExceptionHandler() {
+class ExceptionHandler : ResponseEntityExceptionHandler() {
 
     private val exLogger by logger()
 

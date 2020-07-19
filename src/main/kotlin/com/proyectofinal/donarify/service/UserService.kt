@@ -21,7 +21,11 @@ class UserService(
     private lateinit var encoder: PasswordEncoder
 
     override fun loadUserByUsername(username: String?): UserDetails {
-        if (username.isNullOrBlank()) throw RequestException("no username provided", "no username", HttpStatus.BAD_REQUEST.value())
+        if (username.isNullOrBlank()) throw RequestException(
+            "no username provided",
+            "no username",
+            HttpStatus.BAD_REQUEST.value()
+        )
 
         val user = repository.findByUsername(username)
             ?: throw RequestException("no username found", "not.found", HttpStatus.NOT_FOUND.value())
@@ -30,7 +34,7 @@ class UserService(
     }
 
     fun saveUser(user: UserDto): UserModel {
-        val user = UserModel(user.username, encoder.encode(user.password))
-        return repository.save(user)
+        val userModel = UserModel(user.username, encoder.encode(user.password))
+        return repository.save(userModel)
     }
 }

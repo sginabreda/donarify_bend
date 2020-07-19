@@ -1,21 +1,19 @@
 package com.proyectofinal.donarify.security
 
 import com.proyectofinal.donarify.context.HeaderType
-import com.proyectofinal.donarify.exception.RequestException
 import com.proyectofinal.donarify.logger
 import com.proyectofinal.donarify.service.UserService
 import io.jsonwebtoken.ExpiredJwtException
+import javax.annotation.Priority
+import javax.servlet.FilterChain
+import javax.servlet.http.HttpServletRequest
+import javax.servlet.http.HttpServletResponse
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.http.HttpStatus
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource
 import org.springframework.stereotype.Component
 import org.springframework.web.filter.OncePerRequestFilter
-import javax.annotation.Priority
-import javax.servlet.FilterChain
-import javax.servlet.http.HttpServletRequest
-import javax.servlet.http.HttpServletResponse
 
 @Priority(1)
 @Component
@@ -39,7 +37,7 @@ class JwtFilter(
         if (token != null && token.startsWith("Bearer ")) {
             token = token.substring(7)
             try {
-                username = jwtTokenUtil.getUsernameFromToken(token);
+                username = jwtTokenUtil.getUsernameFromToken(token)
             } catch (e: IllegalArgumentException) {
                 log.error("Unable to get JWT Token")
             } catch (e: ExpiredJwtException) {
@@ -47,7 +45,7 @@ class JwtFilter(
             }
         } else {
             log.warn("JWT Token does not begin with Bearer String")
-            //throw RequestException("No Token", "no.token", HttpStatus.INTERNAL_SERVER_ERROR.value())
+            // throw RequestException("No Token", "no.token", HttpStatus.INTERNAL_SERVER_ERROR.value())
         }
 
         // Once we get the token validate it.
@@ -69,6 +67,6 @@ class JwtFilter(
                 SecurityContextHolder.getContext().authentication = usernamePasswordAuthenticationToken
             }
         }
-        filterChain.doFilter(request, response);
+        filterChain.doFilter(request, response)
     }
 }

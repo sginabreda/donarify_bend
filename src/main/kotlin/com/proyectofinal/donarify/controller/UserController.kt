@@ -25,7 +25,7 @@ class UserController(
     private val jwtTokenUtil: JwtTokenUtil
 ) {
     @RequestMapping(value = ["/authenticate"], method = [RequestMethod.POST])
-    fun createAuthenticationToken(@RequestBody request: JwtRequestDto) : Any? {
+    fun createAuthenticationToken(@RequestBody request: JwtRequestDto): Any? {
         authenticate(request.username, request.password)
 
         val userDetails = userService.loadUserByUsername(request.username)
@@ -36,13 +36,13 @@ class UserController(
     }
 
     @RequestMapping(value = ["/register"], method = [RequestMethod.POST])
-    fun register(@RequestBody user: UserDto) : ResponseEntity<UserModel> {
+    fun register(@RequestBody user: UserDto): ResponseEntity<UserModel> {
         return ResponseEntity.ok(userService.saveUser(user))
     }
 
     private fun authenticate(username: String, password: String) {
         try {
-            authenticationManager.authenticate(UsernamePasswordAuthenticationToken(username, password));
+            authenticationManager.authenticate(UsernamePasswordAuthenticationToken(username, password))
         } catch (e: DisabledException) {
             throw Exception("USER_DISABLED", e)
         } catch (e: BadCredentialsException) {
