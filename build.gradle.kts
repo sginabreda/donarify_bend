@@ -10,7 +10,7 @@ plugins {
 }
 
 group = "com.proyectofinal"
-version = "0.0.1-SNAPSHOT"
+version = "1.0.0-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_11
 
 repositories {
@@ -29,6 +29,7 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("io.jsonwebtoken:jjwt:0.9.1")
     implementation("com.h2database:h2")
+    implementation("org.postgresql:postgresql:42.2.2")
     testImplementation("org.springframework.boot:spring-boot-starter-test") {
         exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
     }
