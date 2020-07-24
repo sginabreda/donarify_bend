@@ -4,6 +4,7 @@ import com.proyectofinal.donarify.service.UserService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.http.HttpMethod
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity
@@ -46,7 +47,10 @@ class SecurityConfig : WebSecurityConfigurerAdapter() {
         http!!.csrf()
             .disable()
             .authorizeRequests()
-            .antMatchers("/authenticate", "/register").permitAll()
+            .antMatchers("/login", "/register").permitAll()
+            .antMatchers(HttpMethod.GET, "/organizations", "/organizations/*").permitAll()
+            .antMatchers(HttpMethod.GET, "/jobs", "/jobs/*").permitAll()
+            .antMatchers(HttpMethod.GET, "/volunteering", "/volunteering/*").permitAll()
             .anyRequest().authenticated().and()
             .exceptionHandling().authenticationEntryPoint(jwtEntryPoint).and()
             .sessionManagement()

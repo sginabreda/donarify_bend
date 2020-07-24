@@ -24,7 +24,7 @@ class UserController(
     private val userService: UserService,
     private val jwtTokenUtil: JwtTokenUtil
 ) {
-    @RequestMapping(value = ["/authenticate"], method = [RequestMethod.POST])
+    @RequestMapping(value = ["/login"], method = [RequestMethod.POST])
     fun createAuthenticationToken(@RequestBody request: JwtRequestDto): Any? {
         authenticate(request.username, request.password)
 

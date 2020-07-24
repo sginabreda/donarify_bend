@@ -6,6 +6,7 @@ import com.proyectofinal.donarify.repository.UserRepository
 import com.proyectofinal.donarify.repository.model.UserModel
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
+import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.userdetails.User
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService
@@ -21,20 +22,18 @@ class UserService(
     private lateinit var encoder: PasswordEncoder
 
     override fun loadUserByUsername(username: String?): UserDetails {
-        if (username.isNullOrBlank()) throw RequestException(
-            "no username provided",
-            "no username",
-            HttpStatus.BAD_REQUEST.value()
-        )
+        if (username.isNullOrBlank()) {
+            throw RequestException("Username was not provided", "invalid.username", HttpStatus.BAD_REQUEST.value())
+        }
 
         val user = repository.findByUsername(username)
-            ?: throw RequestException("no username found", "not.found", HttpStatus.NOT_FOUND.value())
+            ?: throw RequestException("Username not found", "not.found", HttpStatus.NOT_FOUND.value())
 
-        return User(user.username, user.password, emptyList())
+        return User(user.username, user.password, listOf(GrantedAuthority { user.role.toString() }))
     }
 
     fun saveUser(user: UserDto): UserModel {
-        val userModel = UserModel(user.username, encoder.encode(user.password))
+        val userModel = UserModel(user.username, encoder.encode(user.password), user.userRole)
         return repository.save(userModel)
     }
 }
