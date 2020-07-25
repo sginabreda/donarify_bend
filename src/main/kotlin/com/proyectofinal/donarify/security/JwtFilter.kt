@@ -4,16 +4,15 @@ import com.proyectofinal.donarify.context.HeaderType
 import com.proyectofinal.donarify.logger
 import com.proyectofinal.donarify.service.UserService
 import io.jsonwebtoken.ExpiredJwtException
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
-import org.springframework.security.core.context.SecurityContextHolder
-import org.springframework.security.web.authentication.WebAuthenticationDetailsSource
-import org.springframework.stereotype.Component
-import org.springframework.web.filter.OncePerRequestFilter
 import javax.annotation.Priority
 import javax.servlet.FilterChain
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.security.core.context.SecurityContextHolder
+import org.springframework.security.web.authentication.WebAuthenticationDetailsSource
+import org.springframework.stereotype.Component
+import org.springframework.web.filter.OncePerRequestFilter
 
 @Priority(1)
 @Component
