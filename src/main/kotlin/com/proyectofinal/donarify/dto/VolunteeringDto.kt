@@ -3,14 +3,14 @@ package com.proyectofinal.donarify.dto
 import com.fasterxml.jackson.annotation.JsonProperty
 
 data class VolunteeringDto(
-    val id: Long?,
-    val description: String,
-    val address: String,
-    val organizationId: Long,
+    override val id: Long,
+    override val description: String,
+    override val address: String,
+    override val organizationId: Long,
     @JsonProperty(value = "isTemporal")
-    val isTemporal: Boolean,
+    override val isTemporal: Boolean,
     @JsonProperty(value = "isFullTime")
-    val isFullTime: Boolean,
+    override val isFulltime: Boolean,
     @JsonProperty(value = "isVirtual")
-    val isVirtual: Boolean
-)
+    override val isVirtual: Boolean
+) : PostDto(id, description, address, organizationId, isTemporal, isFulltime, isVirtual)

@@ -2,21 +2,23 @@ package com.proyectofinal.donarify.domain
 
 import com.proyectofinal.donarify.dto.JobOfferDto
 import com.proyectofinal.donarify.repository.model.JobOfferModel
+import com.proyectofinal.donarify.repository.model.PostModel
 
 data class JobOffer(
-    val id: Long?,
-    val description: String,
-    val address: String,
-    val organizationId: Long,
-    val isTemporal: Boolean,
-    val isFullTime: Boolean,
-    val isVirtual: Boolean
-) {
-    fun toModel(organization: Organization): JobOfferModel {
-        return JobOfferModel.of(id, description, address, organization.toModel(), isTemporal, isFullTime, isVirtual)
+    override val id: Long,
+    override val description: String,
+    override val address: String,
+    override val organizationId: Long,
+    override val isTemporal: Boolean,
+    override val isFulltime: Boolean,
+    override val isVirtual: Boolean
+) : Post(id, description, address, organizationId, isTemporal, isFulltime, isVirtual) {
+
+    override fun toModel(organization: Organization): PostModel {
+        return JobOfferModel(id, description, address, organization.toModel(), isTemporal, isFulltime, isVirtual)
     }
 
-    fun toDto(): JobOfferDto {
-        return JobOfferDto(id, description, address, organizationId, isTemporal, isFullTime, isVirtual)
+    override fun toDto(): JobOfferDto {
+        return JobOfferDto(id, address, description, isFulltime, isTemporal, isVirtual, organizationId)
     }
 }

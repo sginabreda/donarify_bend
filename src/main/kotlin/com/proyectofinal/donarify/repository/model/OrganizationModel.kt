@@ -10,6 +10,7 @@ import javax.persistence.GenerationType
 import javax.persistence.Id
 import javax.persistence.OneToMany
 import javax.persistence.Table
+import org.hibernate.annotations.Where
 
 @Entity
 @Table(name = "organizations", schema = "public")
@@ -18,11 +19,13 @@ data class OrganizationModel(
     var name: String,
     @Column(name = "description")
     var description: String,
-    @OneToMany(mappedBy = "organization", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "organization", fetch = FetchType.LAZY, targetEntity = JobOfferModel::class)
     @JsonManagedReference
+    @Where(clause = "dtype='JOB'")
     var jobs: List<JobOfferModel> = listOf(),
-    @OneToMany(mappedBy = "organization", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "organization", fetch = FetchType.LAZY, targetEntity = VolunteeringModel::class)
     @JsonManagedReference
+    @Where(clause = "dtype='VOLUNTEER'")
     var volunteerings: List<VolunteeringModel> = listOf(),
     @Column(name = "address")
     var address: String,

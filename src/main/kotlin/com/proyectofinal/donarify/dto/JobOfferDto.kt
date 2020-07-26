@@ -1,16 +1,11 @@
 package com.proyectofinal.donarify.dto
 
-import com.fasterxml.jackson.annotation.JsonProperty
-
 data class JobOfferDto(
-    val id: Long?,
-    val description: String,
-    val address: String,
-    val organizationId: Long,
-    @JsonProperty(value = "isTemporal")
-    val isTemporal: Boolean,
-    @JsonProperty(value = "isFullTime")
-    val isFullTime: Boolean,
-    @JsonProperty(value = "isVirtual")
-    val isVirtual: Boolean
-)
+    override val id: Long,
+    override val address: String,
+    override val description: String,
+    override val isFulltime: Boolean,
+    override val isTemporal: Boolean,
+    override val isVirtual: Boolean,
+    override val organizationId: Long
+) : PostDto(id, description, address, organizationId, isTemporal, isFulltime, isVirtual)
