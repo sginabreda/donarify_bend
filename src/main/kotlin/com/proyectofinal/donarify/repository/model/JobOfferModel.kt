@@ -3,6 +3,7 @@ package com.proyectofinal.donarify.repository.model
 import com.fasterxml.jackson.annotation.JsonBackReference
 import com.proyectofinal.donarify.domain.JobOffer
 import javax.persistence.Column
+import javax.persistence.DiscriminatorValue
 import javax.persistence.Entity
 import javax.persistence.FetchType
 import javax.persistence.GeneratedValue
@@ -10,49 +11,30 @@ import javax.persistence.GenerationType
 import javax.persistence.Id
 import javax.persistence.JoinColumn
 import javax.persistence.ManyToOne
-import javax.persistence.Table
 
 @Entity
-@Table(name = "job_offers", schema = "public")
+@DiscriminatorValue("JOB")
 data class JobOfferModel(
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    override var id: Long,
     @Column(name = "description")
-    var description: String,
+    override var description: String,
     @Column(name = "address")
-    var address: String,
+    override var address: String,
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
     @JoinColumn(name = "organization_id", nullable = false)
-    var organization: OrganizationModel,
+    override var organization: OrganizationModel,
     @Column(name = "is_temporal")
-    var isTemporal: Boolean,
+    override var isTemporal: Boolean,
     @Column(name = "is_full_time")
-    var isFullTime: Boolean,
+    override var isFulltime: Boolean,
     @Column(name = "is_virtual")
-    var isVirtual: Boolean
-) {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long = 0
+    override var isVirtual: Boolean
+) : PostModel() {
 
-    fun toDomain(): JobOffer {
-        return JobOffer(id, description, address, organization.id, isTemporal, isFullTime, isVirtual)
-    }
-
-    companion object {
-        fun of(
-            id: Long?,
-            description: String,
-            address: String,
-            organization: OrganizationModel,
-            isTemporal: Boolean,
-            isFullTime: Boolean,
-            isVirtual: Boolean
-        ): JobOfferModel {
-            val jobOffer = JobOfferModel(
-                description, address, organization, isTemporal, isFullTime, isVirtual
-            )
-            id?.run { jobOffer.id = id }
-            return jobOffer
-        }
+    override fun toDomain(): JobOffer {
+        return JobOffer(id, description, address, organization.id, isTemporal, isFulltime, isVirtual)
     }
 }
