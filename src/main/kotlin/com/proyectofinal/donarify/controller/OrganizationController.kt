@@ -21,7 +21,6 @@ class OrganizationController(private val service: OrganizationService) {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    // @Secured("ORGANIZATION")
     fun createOrganization(@RequestBody organizationDto: OrganizationRequestDto): String {
         return service.createOrganization(organizationDto.toOrganization())
     }

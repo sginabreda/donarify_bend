@@ -18,7 +18,7 @@ class JwtTokenUtil(
 ) {
 
     private val jwtTokenValidity = 5 * 60 * 60
-    private val rolesClaim = "role"
+    private val roleClaim = "role"
 
     fun getUsernameFromToken(token: String?): String {
         return getClaimFromToken(
@@ -60,7 +60,7 @@ class JwtTokenUtil(
         return Jwts.builder().setClaims(claims).setSubject(userDetails.username)
             .setIssuedAt(Date(System.currentTimeMillis()))
             .setExpiration(Date(System.currentTimeMillis() + jwtTokenValidity * 1000))
-            .claim("role", listOf(userDetails.authorities.first().authority))
+            .claim(roleClaim, listOf(userDetails.authorities.first().authority))
             .signWith(SignatureAlgorithm.HS512, secret).compact()
     }
 
@@ -72,7 +72,7 @@ class JwtTokenUtil(
     fun getAuthentication(token: String, userDetails: UserDetails): UsernamePasswordAuthenticationToken {
         val claims = getAllClaimsFromToken(token)
 
-        val authorities = (claims[rolesClaim] as List<String>)
+        val authorities = (claims[roleClaim] as List<String>)
             .map { SimpleGrantedAuthority(it) }
 
         return UsernamePasswordAuthenticationToken(userDetails, "", authorities)

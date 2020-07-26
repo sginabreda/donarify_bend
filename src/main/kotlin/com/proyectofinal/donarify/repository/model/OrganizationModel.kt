@@ -56,7 +56,8 @@ data class OrganizationModel(
             facebookUrl = facebookUrl,
             twitterUrl = twitterUrl,
             instagramUrl = instagramUrl,
-            email = email
+            email = email,
+            volunteerings = volunteerings.map { it.toDomain() }
         )
     }
 

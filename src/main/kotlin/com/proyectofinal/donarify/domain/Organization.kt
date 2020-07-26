@@ -14,7 +14,8 @@ data class Organization(
     val twitterUrl: String?,
     val instagramUrl: String?,
     val email: String,
-    val jobs: List<JobOffer> = listOf()
+    val jobs: List<JobOffer> = listOf(),
+    val volunteerings: List<Volunteering> = listOf()
 ) {
     fun toModel(): OrganizationModel {
         return OrganizationModel.of(
@@ -43,7 +44,8 @@ data class Organization(
             facebookUrl = facebookUrl,
             twitterUrl = twitterUrl,
             instagramUrl = instagramUrl,
-            email = email
+            email = email,
+            volunteerings = volunteerings.map { it.toDto() }
         )
     }
 }

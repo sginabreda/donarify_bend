@@ -4,6 +4,7 @@ import com.proyectofinal.donarify.domain.Organization
 
 data class OrganizationRequestDto(
     val id: Long?,
+    val email: String,
     val name: String,
     val description: String,
     val address: String,
@@ -11,8 +12,7 @@ data class OrganizationRequestDto(
     val url: String?,
     val facebookUrl: String?,
     val twitterUrl: String?,
-    val instagramUrl: String?,
-    val email: String
+    val instagramUrl: String?
 ) {
     fun toOrganization(): Organization {
         return Organization(

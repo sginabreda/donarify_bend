@@ -11,5 +11,6 @@ data class OrganizationDto(
     val facebookUrl: String?,
     val twitterUrl: String?,
     val instagramUrl: String?,
-    val email: String
+    val email: String,
+    val volunteerings: List<VolunteeringDto>? = listOf()
 )
