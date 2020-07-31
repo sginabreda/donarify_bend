@@ -6,6 +6,7 @@ import com.proyectofinal.donarify.dto.OrganizationRequestDto
 import com.proyectofinal.donarify.mapper.toOrganizationListDto
 import com.proyectofinal.donarify.service.OrganizationService
 import org.springframework.http.HttpStatus
+import org.springframework.web.bind.annotation.CrossOrigin
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("organizations")
+@CrossOrigin
 class OrganizationController(private val service: OrganizationService) {
 
     @PostMapping
