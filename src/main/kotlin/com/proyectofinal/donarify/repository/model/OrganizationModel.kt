@@ -40,7 +40,9 @@ data class OrganizationModel(
     @Column(name = "instagram_url")
     var instagramUrl: String?,
     @Column(name = "email")
-    var email: String
+    var email: String,
+    @Column(name = "image_url")
+    var imageUrl: String?
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -60,6 +62,7 @@ data class OrganizationModel(
             twitterUrl = twitterUrl,
             instagramUrl = instagramUrl,
             email = email,
+            imageUrl = imageUrl,
             volunteerings = volunteerings.map { it.toDomain() }
         )
     }
@@ -75,7 +78,8 @@ data class OrganizationModel(
             facebookUrl: String?,
             twitterUrl: String?,
             instagramUrl: String?,
-            email: String
+            email: String,
+            imageUrl: String?
         ): OrganizationModel {
             val org = OrganizationModel(
                 name = name,
@@ -86,7 +90,8 @@ data class OrganizationModel(
                 facebookUrl = facebookUrl,
                 twitterUrl = twitterUrl,
                 instagramUrl = instagramUrl,
-                email = email
+                email = email,
+                imageUrl = imageUrl
             )
             id?.let { org.id = id }
             return org

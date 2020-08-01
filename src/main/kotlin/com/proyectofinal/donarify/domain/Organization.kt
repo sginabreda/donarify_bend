@@ -14,6 +14,7 @@ data class Organization(
     val twitterUrl: String?,
     val instagramUrl: String?,
     val email: String,
+    val imageUrl: String?,
     val jobs: List<JobOffer> = listOf(),
     val volunteerings: List<Volunteering> = listOf()
 ) {
@@ -28,7 +29,8 @@ data class Organization(
             facebookUrl,
             twitterUrl,
             instagramUrl,
-            email
+            email,
+            imageUrl
         )
     }
 
@@ -45,6 +47,7 @@ data class Organization(
             twitterUrl = twitterUrl,
             instagramUrl = instagramUrl,
             email = email,
+            imageUrl = imageUrl,
             volunteerings = volunteerings.map { it.toDto() }
         )
     }
