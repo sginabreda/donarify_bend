@@ -3,6 +3,8 @@ package com.proyectofinal.donarify.repository.model
 import com.fasterxml.jackson.annotation.JsonBackReference
 import com.proyectofinal.donarify.domain.Post
 import javax.persistence.Column
+import javax.persistence.DiscriminatorColumn
+import javax.persistence.DiscriminatorType
 import javax.persistence.Entity
 import javax.persistence.FetchType
 import javax.persistence.GeneratedValue
@@ -16,6 +18,7 @@ import javax.persistence.Table
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "type", discriminatorType = DiscriminatorType.INTEGER)
 @Table(name = "posts", schema = "public")
 abstract class PostModel {
     @Id
@@ -30,11 +33,13 @@ abstract class PostModel {
     @JoinColumn(name = "organization_id", nullable = false)
     open lateinit var organization: OrganizationModel
     @Column(name = "is_temporal")
-    open var isTemporal: Boolean = false
+    open var temporal: Boolean = false
     @Column(name = "is_full_time")
-    open var isFulltime: Boolean = false
+    open var fulltime: Boolean = false
     @Column(name = "is_virtual")
-    open var isVirtual: Boolean = false
+    open var virtual: Boolean = false
+    @Column(name = "type", updatable = false, insertable = false)
+    open var type: Long = 0
 
     abstract fun toDomain(): Post
 }

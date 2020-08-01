@@ -8,9 +8,9 @@ abstract class Post(
     open val description: String,
     open val address: String,
     open val organizationId: Long,
-    open val isTemporal: Boolean,
-    open val isFulltime: Boolean,
-    open val isVirtual: Boolean
+    open val temporal: Boolean,
+    open val fulltime: Boolean,
+    open val virtual: Boolean
 ) {
 
     abstract fun toModel(organization: Organization): PostModel

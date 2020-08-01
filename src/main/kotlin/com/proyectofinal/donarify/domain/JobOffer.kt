@@ -9,16 +9,16 @@ data class JobOffer(
     override val description: String,
     override val address: String,
     override val organizationId: Long,
-    override val isTemporal: Boolean,
-    override val isFulltime: Boolean,
-    override val isVirtual: Boolean
-) : Post(id, description, address, organizationId, isTemporal, isFulltime, isVirtual) {
+    override val temporal: Boolean,
+    override val fulltime: Boolean,
+    override val virtual: Boolean
+) : Post(id, description, address, organizationId, temporal, fulltime, virtual) {
 
     override fun toModel(organization: Organization): PostModel {
-        return JobOfferModel(id, description, address, organization.toModel(), isTemporal, isFulltime, isVirtual)
+        return JobOfferModel(id, description, address, organization.toModel(), temporal, fulltime, virtual, PostType.JOB_OFFER.value)
     }
 
     override fun toDto(): JobOfferDto {
-        return JobOfferDto(id, address, description, isFulltime, isTemporal, isVirtual, organizationId)
+        return JobOfferDto(id, address, description, fulltime, temporal, virtual, organizationId)
     }
 }

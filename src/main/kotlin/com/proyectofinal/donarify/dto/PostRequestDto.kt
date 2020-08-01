@@ -9,17 +9,17 @@ import com.proyectofinal.donarify.domain.Post
         include = JsonTypeInfo.As.PROPERTY,
         property = "type")
 @JsonSubTypes(
-        JsonSubTypes.Type(value = JobOfferRequestDto::class, name = "JobOffer"),
-        JsonSubTypes.Type(value = VolunteeringRequestDto::class, name = "Volunteering")
+        JsonSubTypes.Type(value = JobOfferRequestDto::class, name = "JOB_OFFER"),
+        JsonSubTypes.Type(value = VolunteeringRequestDto::class, name = "VOLUNTEERING")
 )
 abstract class PostRequestDto(
     open val id: Long,
     open val description: String,
     open val address: String,
     open val organizationId: Long,
-    open val isTemporal: Boolean,
-    open val isFulltime: Boolean,
-    open val isVirtual: Boolean
+    open val temporal: Boolean,
+    open val fulltime: Boolean,
+    open val virtual: Boolean
 ) {
     abstract fun toDomain(): Post
 }

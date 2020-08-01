@@ -6,13 +6,13 @@ data class JobOfferRequestDto(
     override val id: Long,
     override val address: String,
     override val description: String,
-    override val isFulltime: Boolean,
-    override val isTemporal: Boolean,
-    override val isVirtual: Boolean,
+    override val fulltime: Boolean,
+    override val temporal: Boolean,
+    override val virtual: Boolean,
     override val organizationId: Long
-) : PostRequestDto(id, description, address, organizationId, isTemporal, isFulltime, isVirtual) {
+) : PostRequestDto(id, description, address, organizationId, temporal, fulltime, virtual) {
 
     override fun toDomain(): JobOffer {
-        return JobOffer(id, description, address, organizationId, isTemporal, isFulltime, isVirtual)
+        return JobOffer(id, description, address, organizationId, temporal, fulltime, virtual)
     }
 }

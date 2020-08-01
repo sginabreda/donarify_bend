@@ -8,15 +8,15 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo
         include = JsonTypeInfo.As.PROPERTY,
         property = "type")
 @JsonSubTypes(
-        JsonSubTypes.Type(value = JobOfferDto::class, name = "JobOffer"),
-        JsonSubTypes.Type(value = VolunteeringDto::class, name = "Volunteering")
+        JsonSubTypes.Type(value = JobOfferDto::class, name = "JOB_OFFER"),
+        JsonSubTypes.Type(value = VolunteeringDto::class, name = "VOLUNTEERING")
 )
 abstract class PostDto(
     open val id: Long?,
     open val description: String,
     open val address: String,
     open val organizationId: Long,
-    open val isTemporal: Boolean,
-    open val isFulltime: Boolean,
-    open val isVirtual: Boolean
+    open val temporal: Boolean,
+    open val fulltime: Boolean,
+    open val virtual: Boolean
 )

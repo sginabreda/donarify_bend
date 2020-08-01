@@ -21,11 +21,11 @@ data class OrganizationModel(
     var description: String,
     @OneToMany(mappedBy = "organization", fetch = FetchType.LAZY, targetEntity = JobOfferModel::class)
     @JsonManagedReference
-    @Where(clause = "dtype='JOB'")
+    @Where(clause = "type=1")
     var jobs: List<JobOfferModel> = listOf(),
     @OneToMany(mappedBy = "organization", fetch = FetchType.LAZY, targetEntity = VolunteeringModel::class)
     @JsonManagedReference
-    @Where(clause = "dtype='VOLUNTEER'")
+    @Where(clause = "type=2")
     var volunteerings: List<VolunteeringModel> = listOf(),
     @Column(name = "address")
     var address: String,

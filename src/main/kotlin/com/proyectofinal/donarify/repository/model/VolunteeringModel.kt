@@ -13,7 +13,7 @@ import javax.persistence.JoinColumn
 import javax.persistence.ManyToOne
 
 @Entity
-@DiscriminatorValue("VOLUNTEER")
+@DiscriminatorValue("2")
 data class VolunteeringModel(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,14 +27,15 @@ data class VolunteeringModel(
     @JoinColumn(name = "organization_id", nullable = false)
     override var organization: OrganizationModel,
     @Column(name = "is_temporal")
-    override var isTemporal: Boolean,
+    override var temporal: Boolean,
     @Column(name = "is_full_time")
-    override var isFulltime: Boolean,
+    override var fulltime: Boolean,
     @Column(name = "is_virtual")
-    override var isVirtual: Boolean
+    override var virtual: Boolean,
+    override var type: Long
 ) : PostModel() {
 
     override fun toDomain(): Volunteering {
-        return Volunteering(id, description, address, organization.id, isTemporal, isFulltime, isVirtual)
+        return Volunteering(id, description, address, organization.id, temporal, fulltime, virtual)
     }
 }
