@@ -40,6 +40,8 @@ abstract class PostModel {
     open var virtual: Boolean = false
     @Column(name = "type", updatable = false, insertable = false)
     open var type: Long = 0
+    @Column(name = "image_url")
+    open var imageUrl: String? = ""
 
     abstract fun toDomain(): Post
 }

@@ -10,13 +10,14 @@ data class Volunteering(
     override val organizationId: Long,
     override val temporal: Boolean,
     override val fulltime: Boolean,
-    override val virtual: Boolean
-) : Post(id, description, address, organizationId, temporal, fulltime, virtual) {
+    override val virtual: Boolean,
+    override val imageUrl: String?
+) : Post(id, description, address, organizationId, temporal, fulltime, virtual, imageUrl) {
     override fun toModel(organization: Organization): VolunteeringModel {
-        return VolunteeringModel(id, description, address, organization.toModel(), temporal, fulltime, virtual, PostType.VOLUNTEERING.value)
+        return VolunteeringModel(id, description, address, organization.toModel(), temporal, fulltime, virtual, PostType.VOLUNTEERING.value, imageUrl)
     }
 
     override fun toDto(): VolunteeringDto {
-        return VolunteeringDto(id, address, description, fulltime, temporal, virtual, organizationId)
+        return VolunteeringDto(id, address, description, fulltime, temporal, virtual, organizationId, imageUrl)
     }
 }

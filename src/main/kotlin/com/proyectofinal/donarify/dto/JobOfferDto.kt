@@ -7,5 +7,6 @@ data class JobOfferDto(
     override val fulltime: Boolean,
     override val temporal: Boolean,
     override val virtual: Boolean,
-    override val organizationId: Long
-) : PostDto(id, description, address, organizationId, temporal, fulltime, virtual)
+    override val organizationId: Long,
+    override val imageUrl: String?
+) : PostDto(id, description, address, organizationId, temporal, fulltime, virtual, imageUrl)

@@ -32,10 +32,11 @@ data class VolunteeringModel(
     override var fulltime: Boolean,
     @Column(name = "is_virtual")
     override var virtual: Boolean,
-    override var type: Long
+    override var type: Long,
+    override var imageUrl: String?
 ) : PostModel() {
 
     override fun toDomain(): Volunteering {
-        return Volunteering(id, description, address, organization.id, temporal, fulltime, virtual)
+        return Volunteering(id, description, address, organization.id, temporal, fulltime, virtual, imageUrl)
     }
 }

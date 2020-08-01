@@ -19,7 +19,8 @@ abstract class PostRequestDto(
     open val organizationId: Long,
     open val temporal: Boolean,
     open val fulltime: Boolean,
-    open val virtual: Boolean
+    open val virtual: Boolean,
+    open val imageUrl: String?
 ) {
     abstract fun toDomain(): Post
 }
