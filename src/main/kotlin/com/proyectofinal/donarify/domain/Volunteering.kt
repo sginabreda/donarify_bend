@@ -17,6 +17,6 @@ data class Volunteering(
     }
 
     override fun toDto(): VolunteeringDto {
-        return VolunteeringDto(id,address, description, fulltime, temporal, virtual, organizationId)
+        return VolunteeringDto(id, address, description, fulltime, temporal, virtual, organizationId)
     }
 }

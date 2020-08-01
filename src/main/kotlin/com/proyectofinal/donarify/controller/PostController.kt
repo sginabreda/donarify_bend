@@ -1,6 +1,5 @@
 package com.proyectofinal.donarify.controller
 
-import com.proyectofinal.donarify.domain.PostType
 import com.proyectofinal.donarify.dto.PostDto
 import com.proyectofinal.donarify.dto.PostListDto
 import com.proyectofinal.donarify.dto.PostRequestDto
