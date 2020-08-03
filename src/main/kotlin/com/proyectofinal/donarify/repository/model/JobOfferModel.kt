@@ -38,10 +38,11 @@ data class JobOfferModel(
     override var type: Long,
     override var imageUrl: String?,
     @OneToMany(mappedBy = "post_id", fetch = FetchType.LAZY)
-    override var interests: List<PostInterestModel> = listOf()
+    override var interests: List<PostInterestModel> = listOf(),
+    override var title: String
 ) : PostModel() {
 
     override fun toDomain(): JobOffer {
-        return JobOffer(id, description, address, organization.id, temporal, fulltime, virtual, imageUrl)
+        return JobOffer(id, description, address, organization.id, temporal, fulltime, virtual, imageUrl, title)
     }
 }

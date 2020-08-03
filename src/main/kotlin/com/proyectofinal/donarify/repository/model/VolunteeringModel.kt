@@ -38,10 +38,11 @@ data class VolunteeringModel(
     override var type: Long,
     override var imageUrl: String?,
     @OneToMany(mappedBy = "post_id", fetch = FetchType.LAZY)
-    override var interests: List<PostInterestModel> = listOf()
+    override var interests: List<PostInterestModel> = listOf(),
+    override var title: String
 ) : PostModel() {
 
     override fun toDomain(): Volunteering {
-        return Volunteering(id, description, address, organization.id, temporal, fulltime, virtual, imageUrl)
+        return Volunteering(id, description, address, organization.id, temporal, fulltime, virtual, imageUrl, title)
     }
 }

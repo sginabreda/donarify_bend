@@ -8,5 +8,6 @@ data class VolunteeringDto(
     override val temporal: Boolean,
     override val virtual: Boolean,
     override val organizationId: Long,
-    override val imageUrl: String?
-) : PostDto(id, description, address, organizationId, temporal, fulltime, virtual, imageUrl)
+    override val imageUrl: String?,
+    override val title: String
+) : PostDto(id, description, address, organizationId, temporal, fulltime, virtual, imageUrl, title)

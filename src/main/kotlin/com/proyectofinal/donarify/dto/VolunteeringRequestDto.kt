@@ -10,10 +10,11 @@ data class VolunteeringRequestDto(
     override val temporal: Boolean,
     override val fulltime: Boolean,
     override val virtual: Boolean,
-    override val imageUrl: String?
-) : PostRequestDto(id, description, address, organizationId, temporal, fulltime, virtual, imageUrl) {
+    override val imageUrl: String?,
+    override val title: String
+) : PostRequestDto(id, description, address, organizationId, temporal, fulltime, virtual, imageUrl, title) {
 
     override fun toDomain(): Volunteering {
-        return Volunteering(id, description, address, organizationId, temporal, fulltime, virtual, imageUrl)
+        return Volunteering(id, description, address, organizationId, temporal, fulltime, virtual, imageUrl, title)
     }
 }

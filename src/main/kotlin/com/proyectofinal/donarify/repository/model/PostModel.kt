@@ -55,5 +55,8 @@ abstract class PostModel {
     @OneToMany(mappedBy = "post", fetch = FetchType.LAZY)
     open var interests: List<PostInterestModel> = listOf()
 
+    @Column(name = "title")
+    open lateinit var title: String
+
     abstract fun toDomain(): Post
 }
