@@ -1,4 +1,4 @@
-package com.proyectofinal.donarify.dto
+package com.proyectofinal.donarify.dto.organization
 
 import com.proyectofinal.donarify.domain.Organization
 

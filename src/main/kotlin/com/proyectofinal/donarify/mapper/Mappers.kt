@@ -3,9 +3,9 @@ package com.proyectofinal.donarify.mapper
 import com.proyectofinal.donarify.domain.Organization
 import com.proyectofinal.donarify.domain.Post
 import com.proyectofinal.donarify.domain.PostInterest
-import com.proyectofinal.donarify.dto.OrganizationListDto
-import com.proyectofinal.donarify.dto.PostInterestListDto
-import com.proyectofinal.donarify.dto.PostListDto
+import com.proyectofinal.donarify.dto.organization.OrganizationListDto
+import com.proyectofinal.donarify.dto.post_interest.PostInterestListDto
+import com.proyectofinal.donarify.dto.post.PostListDto
 
 fun toOrganizationListDto(list: List<Organization>): OrganizationListDto {
     return OrganizationListDto(

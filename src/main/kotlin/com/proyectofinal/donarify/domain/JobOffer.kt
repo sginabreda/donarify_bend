@@ -1,6 +1,6 @@
 package com.proyectofinal.donarify.domain
 
-import com.proyectofinal.donarify.dto.JobOfferDto
+import com.proyectofinal.donarify.dto.post.JobOfferDto
 import com.proyectofinal.donarify.repository.model.JobOfferModel
 import com.proyectofinal.donarify.repository.model.PostModel
 
@@ -33,6 +33,16 @@ data class JobOffer(
     }
 
     override fun toDto(): JobOfferDto {
-        return JobOfferDto(id, address, description, fulltime, temporal, virtual, organizationId, imageUrl, title)
+        return JobOfferDto(
+            id,
+            address,
+            description,
+            fulltime,
+            temporal,
+            virtual,
+            organizationId,
+            imageUrl,
+            title
+        )
     }
 }

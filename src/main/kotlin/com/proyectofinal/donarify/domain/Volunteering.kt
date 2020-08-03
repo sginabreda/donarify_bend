@@ -1,6 +1,6 @@
 package com.proyectofinal.donarify.domain
 
-import com.proyectofinal.donarify.dto.VolunteeringDto
+import com.proyectofinal.donarify.dto.post.VolunteeringDto
 import com.proyectofinal.donarify.repository.model.VolunteeringModel
 
 data class Volunteering(
@@ -32,6 +32,16 @@ data class Volunteering(
     }
 
     override fun toDto(): VolunteeringDto {
-        return VolunteeringDto(id, address, description, fulltime, temporal, virtual, organizationId, imageUrl, title)
+        return VolunteeringDto(
+            id,
+            address,
+            description,
+            fulltime,
+            temporal,
+            virtual,
+            organizationId,
+            imageUrl,
+            title
+        )
     }
 }

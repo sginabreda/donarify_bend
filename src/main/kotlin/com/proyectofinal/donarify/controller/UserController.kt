@@ -1,9 +1,12 @@
 package com.proyectofinal.donarify.controller
 
-import com.proyectofinal.donarify.dto.JwtRequestDto
-import com.proyectofinal.donarify.dto.JwtResponseDto
-import com.proyectofinal.donarify.dto.PostInterestListDto
-import com.proyectofinal.donarify.dto.UserDto
+import com.proyectofinal.donarify.context.ContextHelper
+import com.proyectofinal.donarify.dto.user.JwtRequestDto
+import com.proyectofinal.donarify.dto.user.JwtResponseDto
+import com.proyectofinal.donarify.dto.post_interest.PostInterestListDto
+import com.proyectofinal.donarify.dto.user.UserDto
+import com.proyectofinal.donarify.dto.user.UserRequestDto
+import com.proyectofinal.donarify.dto.user.UserUpdateDto
 import com.proyectofinal.donarify.exception.RequestException
 import com.proyectofinal.donarify.mapper.toPostInterestListDto
 import com.proyectofinal.donarify.repository.model.UserModel
@@ -19,6 +22,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.web.bind.annotation.CrossOrigin
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.ResponseStatus
@@ -33,17 +37,19 @@ class UserController(
     private val jwtTokenUtil: JwtTokenUtil
 ) {
     @PostMapping("/login")
-    fun createAuthenticationToken(@RequestBody request: JwtRequestDto): Any? {
+    @ResponseStatus(HttpStatus.OK)
+    fun createAuthenticationToken(@RequestBody request: JwtRequestDto): JwtResponseDto {
         authenticate(request.username, request.password)
         val userDetails = service.loadUserByUsername(request.username)
         val token = jwtTokenUtil.generateToken(userDetails)
 
-        return ResponseEntity.ok(JwtResponseDto(token))
+        return JwtResponseDto(token)
     }
 
     @PostMapping("/register")
-    fun register(@RequestBody user: UserDto): ResponseEntity<UserModel> {
-        return ResponseEntity.ok(service.saveUser(user))
+    @ResponseStatus(HttpStatus.CREATED)
+    fun register(@RequestBody user: UserRequestDto): UserDto {
+        return service.saveUser(user).toDto()
     }
 
     @GetMapping("/interests")
@@ -53,6 +59,13 @@ class UserController(
         return toPostInterestListDto(service.getInterests())
     }
 
+    @PutMapping("/settings")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    fun modifyUser(@RequestBody userUpdateDto: UserUpdateDto): UserDto {
+        validateUser(userUpdateDto)
+        return service.modifyUser(userUpdateDto).toDto()
+    }
+
     private fun authenticate(username: String, password: String) {
         try {
             authenticationManager.authenticate(UsernamePasswordAuthenticationToken(username, password))
@@ -60,6 +73,12 @@ class UserController(
             throw RequestException("User is disabled", "disabled.user", HttpStatus.UNAUTHORIZED.value())
         } catch (e: BadCredentialsException) {
             throw RequestException("Invalid credentials", "invalid.credentials", HttpStatus.UNAUTHORIZED.value())
+        }
+    }
+
+    private fun validateUser(userUpdate: UserUpdateDto) {
+        if (userUpdate.username != ContextHelper.getLoggedUser()){
+            throw RequestException("Invalid username", "invalid.username", HttpStatus.BAD_REQUEST.value())
         }
     }
 }

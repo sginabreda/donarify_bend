@@ -2,7 +2,8 @@ package com.proyectofinal.donarify.service
 
 import com.proyectofinal.donarify.context.ContextHelper
 import com.proyectofinal.donarify.domain.PostInterest
-import com.proyectofinal.donarify.dto.UserDto
+import com.proyectofinal.donarify.dto.user.UserRequestDto
+import com.proyectofinal.donarify.dto.user.UserUpdateDto
 import com.proyectofinal.donarify.exception.RequestException
 import com.proyectofinal.donarify.repository.PostInterestRepository
 import com.proyectofinal.donarify.repository.UserRepository
@@ -35,7 +36,7 @@ class UserService(
         return User(user.username, user.password, listOf(GrantedAuthority { user.role.toString() }))
     }
 
-    fun saveUser(user: UserDto): UserModel {
+    fun saveUser(user: UserRequestDto): UserModel {
         val userModel = UserModel(user.username, encoder.encode(user.password), user.userRole)
         return repository.save(userModel)
     }
@@ -45,5 +46,20 @@ class UserService(
         val list = interestRepository.findAllByUser(user!!)
 
         return list.map { it.toDomain() }
+    }
+
+    fun modifyUser(userUpdateDto: UserUpdateDto): UserModel {
+        val user = repository.findByUsername(ContextHelper.getLoggedUser())
+        modifyAttributes(user!!, userUpdateDto)
+
+        return repository.save(user)
+    }
+
+    private fun modifyAttributes(userModel: UserModel, userUpdateDto: UserUpdateDto) {
+        userModel.address = userUpdateDto.address
+        userModel.name = userUpdateDto.name
+        userModel.lastName = userUpdateDto.lastName
+        userModel.telephone = userUpdateDto.telephone
+        userModel.password = encoder.encode(userUpdateDto.password)
     }
 }

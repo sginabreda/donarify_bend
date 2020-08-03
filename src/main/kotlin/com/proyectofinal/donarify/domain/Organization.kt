@@ -1,6 +1,6 @@
 package com.proyectofinal.donarify.domain
 
-import com.proyectofinal.donarify.dto.OrganizationDto
+import com.proyectofinal.donarify.dto.organization.OrganizationDto
 import com.proyectofinal.donarify.repository.model.OrganizationModel
 
 data class Organization(

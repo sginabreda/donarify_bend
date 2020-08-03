@@ -1,6 +1,6 @@
 package com.proyectofinal.donarify.domain
 
-import com.proyectofinal.donarify.dto.PostDto
+import com.proyectofinal.donarify.dto.post.PostDto
 import com.proyectofinal.donarify.repository.model.PostModel
 
 abstract class Post(

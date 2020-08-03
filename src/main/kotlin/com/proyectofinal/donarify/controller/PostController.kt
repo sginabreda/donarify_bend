@@ -1,8 +1,8 @@
 package com.proyectofinal.donarify.controller
 
-import com.proyectofinal.donarify.dto.PostDto
-import com.proyectofinal.donarify.dto.PostListDto
-import com.proyectofinal.donarify.dto.PostRequestDto
+import com.proyectofinal.donarify.dto.post.PostDto
+import com.proyectofinal.donarify.dto.post.PostListDto
+import com.proyectofinal.donarify.dto.post.PostRequestDto
 import com.proyectofinal.donarify.mapper.EnumMapper.Companion.booleanMapper
 import com.proyectofinal.donarify.mapper.EnumMapper.Companion.postTypeMapper
 import com.proyectofinal.donarify.mapper.EnumMapper.Companion.throwError

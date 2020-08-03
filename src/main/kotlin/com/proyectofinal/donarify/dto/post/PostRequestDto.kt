@@ -1,18 +1,19 @@
-package com.proyectofinal.donarify.dto
+package com.proyectofinal.donarify.dto.post
 
 import com.fasterxml.jackson.annotation.JsonSubTypes
 import com.fasterxml.jackson.annotation.JsonTypeInfo
+import com.proyectofinal.donarify.domain.Post
 
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.NAME,
         include = JsonTypeInfo.As.PROPERTY,
         property = "type")
 @JsonSubTypes(
-        JsonSubTypes.Type(value = JobOfferDto::class, name = "JOB_OFFER"),
-        JsonSubTypes.Type(value = VolunteeringDto::class, name = "VOLUNTEERING")
+        JsonSubTypes.Type(value = JobOfferRequestDto::class, name = "JOB_OFFER"),
+        JsonSubTypes.Type(value = VolunteeringRequestDto::class, name = "VOLUNTEERING")
 )
-abstract class PostDto(
-    open val id: Long?,
+abstract class PostRequestDto(
+    open val id: Long,
     open val description: String,
     open val address: String,
     open val organizationId: Long,
@@ -21,4 +22,6 @@ abstract class PostDto(
     open val virtual: Boolean,
     open val imageUrl: String?,
     open val title: String
-)
+) {
+    abstract fun toDomain(): Post
+}

@@ -1,4 +1,4 @@
-package com.proyectofinal.donarify.dto
+package com.proyectofinal.donarify.dto.post
 
 import com.proyectofinal.donarify.domain.JobOffer
 

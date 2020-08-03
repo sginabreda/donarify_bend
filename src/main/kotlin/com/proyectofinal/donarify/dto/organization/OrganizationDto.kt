@@ -1,4 +1,7 @@
-package com.proyectofinal.donarify.dto
+package com.proyectofinal.donarify.dto.organization
+
+import com.proyectofinal.donarify.dto.post.VolunteeringDto
+import com.proyectofinal.donarify.dto.post.JobOfferDto
 
 data class OrganizationDto(
     val id: Long,
