@@ -1,5 +1,6 @@
 package com.proyectofinal.donarify.repository.model
 
+import com.proyectofinal.donarify.domain.PostInterest
 import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.FetchType
@@ -29,4 +30,8 @@ data class PostInterestModel(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "post_interest_id")
     var id: Long = 0
+
+    fun toDomain(): PostInterest {
+        return PostInterest(id, post.toDomain())
+    }
 }
