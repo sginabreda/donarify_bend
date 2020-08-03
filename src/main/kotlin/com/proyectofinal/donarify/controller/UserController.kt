@@ -1,19 +1,17 @@
 package com.proyectofinal.donarify.controller
 
 import com.proyectofinal.donarify.context.ContextHelper
+import com.proyectofinal.donarify.dto.post_interest.PostInterestListDto
 import com.proyectofinal.donarify.dto.user.JwtRequestDto
 import com.proyectofinal.donarify.dto.user.JwtResponseDto
-import com.proyectofinal.donarify.dto.post_interest.PostInterestListDto
 import com.proyectofinal.donarify.dto.user.UserDto
 import com.proyectofinal.donarify.dto.user.UserRequestDto
 import com.proyectofinal.donarify.dto.user.UserUpdateDto
 import com.proyectofinal.donarify.exception.RequestException
 import com.proyectofinal.donarify.mapper.toPostInterestListDto
-import com.proyectofinal.donarify.repository.model.UserModel
 import com.proyectofinal.donarify.security.JwtTokenUtil
 import com.proyectofinal.donarify.service.UserService
 import org.springframework.http.HttpStatus
-import org.springframework.http.ResponseEntity
 import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.BadCredentialsException
@@ -77,7 +75,7 @@ class UserController(
     }
 
     private fun validateUser(userUpdate: UserUpdateDto) {
-        if (userUpdate.username != ContextHelper.getLoggedUser()){
+        if (userUpdate.username != ContextHelper.getLoggedUser()) {
             throw RequestException("Invalid username", "invalid.username", HttpStatus.BAD_REQUEST.value())
         }
     }

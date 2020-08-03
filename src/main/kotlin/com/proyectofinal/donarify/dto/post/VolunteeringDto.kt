@@ -1,7 +1,5 @@
 package com.proyectofinal.donarify.dto.post
 
-import com.proyectofinal.donarify.dto.post.PostDto
-
 data class VolunteeringDto(
     override val id: Long,
     override val address: String,
