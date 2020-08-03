@@ -14,6 +14,7 @@ import javax.persistence.Inheritance
 import javax.persistence.InheritanceType
 import javax.persistence.JoinColumn
 import javax.persistence.ManyToOne
+import javax.persistence.OneToMany
 import javax.persistence.Table
 
 @Entity
@@ -24,24 +25,35 @@ abstract class PostModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     open var id: Long = 0
+
     @Column(name = "description")
     open lateinit var description: String
+
     @Column(name = "address")
     open lateinit var address: String
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
     @JoinColumn(name = "organization_id", nullable = false)
     open lateinit var organization: OrganizationModel
+
     @Column(name = "is_temporal")
     open var temporal: Boolean = false
+
     @Column(name = "is_full_time")
     open var fulltime: Boolean = false
+
     @Column(name = "is_virtual")
     open var virtual: Boolean = false
+
     @Column(name = "type", updatable = false, insertable = false)
     open var type: Long = 0
+
     @Column(name = "image_url")
     open var imageUrl: String? = ""
+
+    @OneToMany(mappedBy = "post", fetch = FetchType.LAZY)
+    open var interests: List<PostInterestModel> = listOf()
 
     abstract fun toDomain(): Post
 }

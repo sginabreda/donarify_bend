@@ -1,15 +1,25 @@
 package com.proyectofinal.donarify.service
 
+import com.proyectofinal.donarify.context.ContextHelper
 import com.proyectofinal.donarify.domain.Post
 import com.proyectofinal.donarify.domain.PostType
 import com.proyectofinal.donarify.exception.RequestException
+import com.proyectofinal.donarify.repository.PostInterestRepository
 import com.proyectofinal.donarify.repository.PostRepository
+import com.proyectofinal.donarify.repository.UserRepository
+import com.proyectofinal.donarify.repository.model.PostInterestModel
 import com.proyectofinal.donarify.repository.model.PostModel
+import org.springframework.dao.DataIntegrityViolationException
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
 
 @Service
-class PostService(private val repository: PostRepository, private val orgService: OrganizationService) {
+class PostService(
+    private val repository: PostRepository,
+    private val orgService: OrganizationService,
+    private val userRepository: UserRepository,
+    private val interestRepository: PostInterestRepository
+) {
 
     fun createPost(post: Post): String {
         val organization = orgService.getOrganization(post.organizationId)
@@ -40,6 +50,20 @@ class PostService(private val repository: PostRepository, private val orgService
         return "Post updated!"
     }
 
+    fun createInterest(postId: Long): String {
+        val postModel = getOneOrThrowException(postId)
+        val userModel = userRepository.findByUsername(ContextHelper.getLoggedUser())!!
+        val postInterest = PostInterestModel(postModel, userModel)
+
+        try {
+            interestRepository.save(postInterest)
+        } catch (e: DataIntegrityViolationException) {
+            throw RequestException("Interest already exists!", "duplicate.entry", HttpStatus.BAD_REQUEST.value())
+        }
+
+        return "Interest created!"
+    }
+
     private fun getOneOrThrowException(id: Long): PostModel {
         val postModel: PostModel
         try {
@@ -56,5 +80,6 @@ class PostService(private val repository: PostRepository, private val orgService
         postModel.fulltime = post.fulltime
         postModel.temporal = post.temporal
         postModel.virtual = post.virtual
+        postModel.imageUrl = post.imageUrl
     }
 }

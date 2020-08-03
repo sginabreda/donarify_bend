@@ -9,6 +9,7 @@ import com.proyectofinal.donarify.mapper.EnumMapper.Companion.throwError
 import com.proyectofinal.donarify.mapper.toPostListDto
 import com.proyectofinal.donarify.service.PostService
 import org.springframework.http.HttpStatus
+import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.CrossOrigin
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -57,5 +58,12 @@ class PostController(private val service: PostService) {
     @ResponseStatus(HttpStatus.OK)
     fun modifyPost(@PathVariable id: Long, @RequestBody postRequestDto: PostRequestDto): String {
         return service.modifyPost(id, postRequestDto.toDomain())
+    }
+
+    @PostMapping("/{id}/interests")
+    @ResponseStatus(HttpStatus.CREATED)
+    @PreAuthorize("hasAuthority('USER')")
+    fun createInterest(@PathVariable id: Long): String {
+        return service.createInterest(id)
     }
 }
