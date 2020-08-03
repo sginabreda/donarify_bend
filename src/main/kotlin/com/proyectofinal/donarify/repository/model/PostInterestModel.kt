@@ -12,15 +12,17 @@ import javax.persistence.Table
 import javax.persistence.UniqueConstraint
 
 @Entity
-@Table(name = "post_interests", schema = "public", uniqueConstraints = [UniqueConstraint(columnNames = ["post_id", "user_id"])])
+@Table(
+    name = "post_interests",
+    schema = "public",
+    uniqueConstraints = [UniqueConstraint(columnNames = ["post_id", "user_id"])]
+)
 data class PostInterestModel(
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "post_id", nullable = false)
-    // @MapsId(value = "postId")
     var post: PostModel,
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
-    // @MapsId(value = "userId")
     var user: UserModel
 ) {
     @Id
