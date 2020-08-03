@@ -11,9 +11,12 @@ import javax.persistence.GenerationType
 import javax.persistence.Id
 import javax.persistence.JoinColumn
 import javax.persistence.ManyToOne
+import javax.persistence.OneToMany
+import javax.persistence.Table
 
 @Entity
 @DiscriminatorValue("1")
+@Table(name = "posts", schema = "public")
 data class JobOfferModel(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,7 +36,9 @@ data class JobOfferModel(
     @Column(name = "is_virtual")
     override var virtual: Boolean,
     override var type: Long,
-    override var imageUrl: String?
+    override var imageUrl: String?,
+    @OneToMany(mappedBy = "post_id", fetch = FetchType.LAZY)
+    override var interests: List<PostInterestModel> = listOf()
 ) : PostModel() {
 
     override fun toDomain(): JobOffer {
