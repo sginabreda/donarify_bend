@@ -21,6 +21,6 @@ fun toPostListDto(list: List<Post>): PostListDto {
 
 fun toPostInterestListDto(list: List<PostInterest>): PostInterestListDto {
     return PostInterestListDto(
-        interests = list.map { it.toDto()}
+        interests = list.map { it.toDto() }
     )
 }

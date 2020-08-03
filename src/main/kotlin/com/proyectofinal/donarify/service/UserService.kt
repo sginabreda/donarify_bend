@@ -6,7 +6,6 @@ import com.proyectofinal.donarify.dto.UserDto
 import com.proyectofinal.donarify.exception.RequestException
 import com.proyectofinal.donarify.repository.PostInterestRepository
 import com.proyectofinal.donarify.repository.UserRepository
-import com.proyectofinal.donarify.repository.model.PostInterestModel
 import com.proyectofinal.donarify.repository.model.UserModel
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
