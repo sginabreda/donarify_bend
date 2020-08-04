@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue
 import javax.persistence.GenerationType
 import javax.persistence.Id
 import javax.persistence.OneToMany
+import javax.persistence.OneToOne
 import javax.persistence.Table
 import org.hibernate.annotations.Where
 
@@ -42,7 +43,9 @@ data class OrganizationModel(
     @Column(name = "email")
     var email: String,
     @Column(name = "image_url")
-    var imageUrl: String?
+    var imageUrl: String?,
+    @OneToOne(mappedBy = "organization")
+    var user: UserModel? = null
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

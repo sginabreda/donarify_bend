@@ -10,6 +10,7 @@ import com.proyectofinal.donarify.dto.user.UserUpdateDto
 import com.proyectofinal.donarify.exception.RequestException
 import com.proyectofinal.donarify.mapper.toPostInterestListDto
 import com.proyectofinal.donarify.security.JwtTokenUtil
+import com.proyectofinal.donarify.security.SecurityRole
 import com.proyectofinal.donarify.service.UserService
 import org.springframework.http.HttpStatus
 import org.springframework.security.access.prepost.PreAuthorize
@@ -47,6 +48,7 @@ class UserController(
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
     fun register(@RequestBody user: UserRequestDto): UserDto {
+        validateBody(user)
         return service.saveUser(user).toDto()
     }
 
@@ -77,6 +79,12 @@ class UserController(
     private fun validateUser(userUpdate: UserUpdateDto) {
         if (userUpdate.username != ContextHelper.getLoggedUser()) {
             throw RequestException("Invalid username", "invalid.username", HttpStatus.BAD_REQUEST.value())
+        }
+    }
+
+    private fun validateBody(user: UserRequestDto) {
+        if (user.userRole == SecurityRole.ORGANIZATION && user.organization == null) {
+            throw RequestException("Organization data is required", "bad.request", HttpStatus.BAD_REQUEST.value())
         }
     }
 }

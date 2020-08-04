@@ -7,7 +7,9 @@ import com.proyectofinal.donarify.dto.user.UserUpdateDto
 import com.proyectofinal.donarify.exception.RequestException
 import com.proyectofinal.donarify.repository.PostInterestRepository
 import com.proyectofinal.donarify.repository.UserRepository
+import com.proyectofinal.donarify.repository.model.OrganizationModel
 import com.proyectofinal.donarify.repository.model.UserModel
+import com.proyectofinal.donarify.security.SecurityRole
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.security.core.GrantedAuthority
@@ -37,7 +39,21 @@ class UserService(
     }
 
     fun saveUser(user: UserRequestDto): UserModel {
-        val userModel = UserModel(user.username, encoder.encode(user.password), user.userRole)
+        var organization: OrganizationModel? = null
+        if (user.userRole == SecurityRole.ORGANIZATION) {
+            organization = user.organization!!.toOrganization().toModel()
+        }
+        val userModel = UserModel(
+            user.username,
+            encoder.encode(user.password),
+            user.userRole,
+            emptyList(),
+            user.name,
+            user.lastName,
+            user.address,
+            user.telephone,
+            organization
+        )
         return repository.save(userModel)
     }
 
