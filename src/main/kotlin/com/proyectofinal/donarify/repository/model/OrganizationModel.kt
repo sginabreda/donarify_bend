@@ -11,6 +11,7 @@ import javax.persistence.Id
 import javax.persistence.OneToMany
 import javax.persistence.Table
 import org.hibernate.annotations.Where
+import javax.persistence.OneToOne
 
 @Entity
 @Table(name = "organizations", schema = "public")
@@ -42,7 +43,9 @@ data class OrganizationModel(
     @Column(name = "email")
     var email: String,
     @Column(name = "image_url")
-    var imageUrl: String?
+    var imageUrl: String?,
+    @OneToOne(mappedBy = "organization")
+    var user: UserModel? = null
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

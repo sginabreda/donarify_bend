@@ -1,5 +1,6 @@
 package com.proyectofinal.donarify.dto.user
 
+import com.proyectofinal.donarify.dto.organization.OrganizationRequestDto
 import com.proyectofinal.donarify.security.SecurityRole
 
 data class UserRequestDto(
@@ -9,5 +10,6 @@ data class UserRequestDto(
     val name: String?,
     val lastName: String?,
     val address: String?,
-    val telephone: String?
+    val telephone: String?,
+    val organization: OrganizationRequestDto?
 )

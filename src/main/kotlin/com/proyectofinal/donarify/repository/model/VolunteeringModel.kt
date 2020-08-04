@@ -2,6 +2,7 @@ package com.proyectofinal.donarify.repository.model
 
 import com.fasterxml.jackson.annotation.JsonBackReference
 import com.proyectofinal.donarify.domain.Volunteering
+import com.proyectofinal.donarify.domain.VolunteeringType
 import javax.persistence.Column
 import javax.persistence.DiscriminatorValue
 import javax.persistence.Entity
@@ -39,10 +40,22 @@ data class VolunteeringModel(
     override var imageUrl: String?,
     @OneToMany(mappedBy = "post_id", fetch = FetchType.LAZY)
     override var interests: List<PostInterestModel> = listOf(),
-    override var title: String
+    override var title: String,
+    val subType: VolunteeringType
 ) : PostModel() {
 
     override fun toDomain(): Volunteering {
-        return Volunteering(id, description, address, organization.id, temporal, fulltime, virtual, imageUrl, title)
+        return Volunteering(
+            id,
+            description,
+            address,
+            organization.id,
+            temporal,
+            fulltime,
+            virtual,
+            imageUrl,
+            title,
+            subType
+        )
     }
 }

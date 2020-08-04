@@ -12,7 +12,8 @@ data class Volunteering(
     override val fulltime: Boolean,
     override val virtual: Boolean,
     override val imageUrl: String?,
-    override val title: String
+    override val title: String,
+    val subType: VolunteeringType
 ) : Post(id, description, address, organizationId, temporal, fulltime, virtual, imageUrl, title) {
 
     override fun toModel(organization: Organization): VolunteeringModel {
@@ -27,7 +28,8 @@ data class Volunteering(
             PostType.VOLUNTEERING.value,
             imageUrl,
             emptyList(),
-            title
+            title,
+            subType
         )
     }
 
@@ -41,7 +43,8 @@ data class Volunteering(
             virtual,
             organizationId,
             imageUrl,
-            title
+            title,
+            subType.name
         )
     }
 }

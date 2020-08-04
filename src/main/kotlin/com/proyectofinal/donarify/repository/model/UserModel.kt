@@ -2,13 +2,16 @@ package com.proyectofinal.donarify.repository.model
 
 import com.proyectofinal.donarify.dto.user.UserDto
 import com.proyectofinal.donarify.security.SecurityRole
+import javax.persistence.CascadeType
 import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.FetchType
 import javax.persistence.GeneratedValue
 import javax.persistence.GenerationType
 import javax.persistence.Id
+import javax.persistence.JoinColumn
 import javax.persistence.OneToMany
+import javax.persistence.OneToOne
 import javax.persistence.Table
 
 @Entity
@@ -29,7 +32,10 @@ data class UserModel(
     @Column(name = "address")
     var address: String? = "",
     @Column(name = "telephone")
-    var telephone: String? = ""
+    var telephone: String? = "",
+    @OneToOne(cascade = [CascadeType.ALL])
+    @JoinColumn(name = "organization_id", referencedColumnName = "organization_id")
+    val organization: OrganizationModel? = null
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,5 +44,31 @@ data class UserModel(
 
     fun toDto(): UserDto {
         return UserDto(username, password, name, lastName, address, telephone)
+    }
+
+    companion object {
+        fun of(
+            username: String,
+            password: String,
+            role: SecurityRole,
+            interests: List<PostInterestModel>,
+            name: String?,
+            lastName: String?,
+            address: String?,
+            telephone: String?,
+            organizationModel: OrganizationModel
+        ): UserModel {
+            return UserModel(
+                username = username,
+                password = password,
+                role = role,
+                interests = interests,
+                name = name,
+                lastName = lastName,
+                address = address,
+                telephone = telephone,
+                organization = organizationModel
+            )
+        }
     }
 }
