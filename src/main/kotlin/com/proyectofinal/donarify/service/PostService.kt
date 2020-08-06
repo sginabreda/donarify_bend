@@ -38,7 +38,7 @@ class PostService(
     ): List<Post> {
         var postList = repository.findAllBy(postType?.value, organizationId, temporal, fulltime, virtual)
         subType?.let {
-            postList = postList.filter { postModel ->  postModel.subType == it.value }
+            postList = postList.filter { postModel -> postModel.subType == it.value }
         }
         return postList.map { it.toDomain() }
     }
