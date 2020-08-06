@@ -3,6 +3,7 @@ package com.proyectofinal.donarify.service
 import com.proyectofinal.donarify.context.ContextHelper
 import com.proyectofinal.donarify.domain.Post
 import com.proyectofinal.donarify.domain.PostType
+import com.proyectofinal.donarify.domain.VolunteeringType
 import com.proyectofinal.donarify.exception.RequestException
 import com.proyectofinal.donarify.repository.PostInterestRepository
 import com.proyectofinal.donarify.repository.PostRepository
@@ -32,9 +33,13 @@ class PostService(
         organizationId: Long?,
         temporal: Boolean?,
         fulltime: Boolean?,
-        virtual: Boolean?
+        virtual: Boolean?,
+        subType: VolunteeringType?
     ): List<Post> {
-        val postList = repository.findAllBy(postType?.value, organizationId, temporal, fulltime, virtual)
+        var postList = repository.findAllBy(postType?.value, organizationId, temporal, fulltime, virtual)
+        subType?.let {
+            postList = postList.filter { postModel ->  postModel.subType == it.value }
+        }
         return postList.map { it.toDomain() }
     }
 

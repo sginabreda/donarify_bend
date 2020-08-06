@@ -41,7 +41,7 @@ data class VolunteeringModel(
     @OneToMany(mappedBy = "post_id", fetch = FetchType.LAZY)
     override var interests: List<PostInterestModel> = listOf(),
     override var title: String,
-    val subType: VolunteeringType
+    override var subType: Long?
 ) : PostModel() {
 
     override fun toDomain(): Volunteering {
@@ -55,7 +55,7 @@ data class VolunteeringModel(
             virtual,
             imageUrl,
             title,
-            subType
+            VolunteeringType.getVolunteeringType(subType!!)
         )
     }
 }

@@ -58,5 +58,8 @@ abstract class PostModel {
     @Column(name = "title")
     open lateinit var title: String
 
+    @Column(name = "sub_type")
+    open var subType: Long? = null
+
     abstract fun toDomain(): Post
 }

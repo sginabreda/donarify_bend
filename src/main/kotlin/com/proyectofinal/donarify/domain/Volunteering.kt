@@ -29,7 +29,7 @@ data class Volunteering(
             imageUrl,
             emptyList(),
             title,
-            subType
+            subType.value
         )
     }
 

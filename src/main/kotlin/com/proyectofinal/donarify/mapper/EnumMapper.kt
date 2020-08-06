@@ -1,6 +1,7 @@
 package com.proyectofinal.donarify.mapper
 
 import com.proyectofinal.donarify.domain.PostType
+import com.proyectofinal.donarify.domain.VolunteeringType
 import com.proyectofinal.donarify.exception.BadRequestException
 
 class EnumMapper {
@@ -13,6 +14,11 @@ class EnumMapper {
         val booleanMapper = mapOf(
             "true" to true,
             "false" to false
+        )
+
+        val subTypeMapper = mapOf(
+            "COMMON" to VolunteeringType.COMMON,
+            "CORPORATE" to VolunteeringType.CORPORATE
         )
 
         fun <T> throwError(param: String): T {
