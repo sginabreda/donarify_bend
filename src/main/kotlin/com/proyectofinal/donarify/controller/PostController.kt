@@ -1,10 +1,14 @@
 package com.proyectofinal.donarify.controller
 
+import com.proyectofinal.donarify.domain.PostType
+import com.proyectofinal.donarify.domain.VolunteeringType
 import com.proyectofinal.donarify.dto.post.PostDto
 import com.proyectofinal.donarify.dto.post.PostListDto
 import com.proyectofinal.donarify.dto.post.PostRequestDto
+import com.proyectofinal.donarify.exception.RequestException
 import com.proyectofinal.donarify.mapper.EnumMapper.Companion.booleanMapper
 import com.proyectofinal.donarify.mapper.EnumMapper.Companion.postTypeMapper
+import com.proyectofinal.donarify.mapper.EnumMapper.Companion.subTypeMapper
 import com.proyectofinal.donarify.mapper.EnumMapper.Companion.throwError
 import com.proyectofinal.donarify.mapper.toPostListDto
 import com.proyectofinal.donarify.service.PostService
@@ -39,13 +43,16 @@ class PostController(private val service: PostService) {
         @RequestParam(value = "organizationId") organizationId: Long?,
         @RequestParam(value = "temporal") temporal: String?,
         @RequestParam(value = "fulltime") fulltime: String?,
-        @RequestParam(value = "virtual") virtual: String?
+        @RequestParam(value = "virtual") virtual: String?,
+        @RequestParam(value = "subType") subType: String?
     ): PostListDto {
         val postType = type?.let { postTypeMapper[it] ?: throwError("postType") }
         val isTemporal = temporal?.let { booleanMapper[it] ?: throwError("temporal") }
         val isFulltime = fulltime?.let { booleanMapper[it] ?: throwError("fulltime") }
         val isVirtual = virtual?.let { booleanMapper[it] ?: throwError("virtual") }
-        return toPostListDto(service.listPosts(postType, organizationId, isTemporal, isFulltime, isVirtual))
+        val subtype = subType?.let { subTypeMapper[it] ?: throwError("subType") }
+        validateParameters(postType, subtype)
+        return toPostListDto(service.listPosts(postType, organizationId, isTemporal, isFulltime, isVirtual, subtype))
     }
 
     @GetMapping("/{id}")
@@ -65,5 +72,18 @@ class PostController(private val service: PostService) {
     @PreAuthorize("hasAuthority('USER')")
     fun createInterest(@PathVariable id: Long): String {
         return service.createInterest(id)
+    }
+
+    private fun validateParameters(postType: PostType?, subType: VolunteeringType?) {
+        postType?.let {
+            if (it == PostType.JOB_OFFER) {
+                if (subType != null)
+                    throw RequestException(
+                        "SubType can only be sent with type VOLUNTEERING",
+                        "bad.request",
+                        HttpStatus.BAD_REQUEST.value()
+                    )
+            }
+        }
     }
 }
