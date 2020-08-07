@@ -8,7 +8,6 @@ import com.proyectofinal.donarify.service.OrganizationService
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
@@ -18,12 +17,6 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("organizations")
 class OrganizationController(private val service: OrganizationService) {
-
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    fun createOrganization(@RequestBody organizationDto: OrganizationRequestDto): String {
-        return service.createOrganization(organizationDto.toOrganization())
-    }
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
