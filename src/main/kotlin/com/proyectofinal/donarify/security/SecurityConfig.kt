@@ -16,8 +16,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
 import org.springframework.web.cors.CorsConfiguration
-import org.springframework.web.cors.CorsConfigurationSource
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 
 @Configuration
 @EnableWebSecurity
@@ -48,6 +46,7 @@ class SecurityConfig : WebSecurityConfigurerAdapter() {
 
     override fun configure(http: HttpSecurity?) {
         http!!.cors()
+            .configurationSource { CorsConfiguration().applyPermitDefaultValues() }
             .and()
             .csrf()
             .disable()
@@ -61,15 +60,5 @@ class SecurityConfig : WebSecurityConfigurerAdapter() {
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter::class.java)
-    }
-
-    @Bean
-    fun corsConfig(): CorsConfigurationSource {
-        val config = CorsConfiguration()
-        config.allowedOrigins = listOf("http://localhost:3000", "https://donarify.netlify.app")
-        config.allowedMethods = listOf("GET", "POST", "PUT", "HEAD", "OPTIONS")
-        val source = UrlBasedCorsConfigurationSource()
-        source.registerCorsConfiguration("/**", config)
-        return source
     }
 }
