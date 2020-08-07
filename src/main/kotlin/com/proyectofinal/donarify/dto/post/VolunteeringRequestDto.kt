@@ -2,6 +2,8 @@ package com.proyectofinal.donarify.dto.post
 
 import com.proyectofinal.donarify.domain.Volunteering
 import com.proyectofinal.donarify.domain.VolunteeringType
+import java.time.Instant
+import java.util.Date
 
 data class VolunteeringRequestDto(
     override val id: Long,
@@ -27,7 +29,8 @@ data class VolunteeringRequestDto(
             virtual,
             imageUrl,
             title,
-            VolunteeringType.valueOf(subType)
+            VolunteeringType.valueOf(subType),
+            Date.from(Instant.now())
         )
     }
 }

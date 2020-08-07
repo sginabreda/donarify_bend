@@ -3,6 +3,8 @@ package com.proyectofinal.donarify.domain
 import com.proyectofinal.donarify.dto.post.JobOfferDto
 import com.proyectofinal.donarify.repository.model.JobOfferModel
 import com.proyectofinal.donarify.repository.model.PostModel
+import com.proyectofinal.donarify.util.toStringDate
+import java.util.Date
 
 data class JobOffer(
     override val id: Long,
@@ -13,8 +15,9 @@ data class JobOffer(
     override val fulltime: Boolean,
     override val virtual: Boolean,
     override val imageUrl: String?,
-    override val title: String
-) : Post(id, description, address, organizationId, temporal, fulltime, virtual, imageUrl, title) {
+    override val title: String,
+    override val creationDate: Date
+) : Post(id, description, address, organizationId, temporal, fulltime, virtual, imageUrl, title, creationDate) {
 
     override fun toModel(organization: Organization): PostModel {
         return JobOfferModel(
@@ -28,7 +31,9 @@ data class JobOffer(
             PostType.JOB_OFFER.value,
             imageUrl,
             emptyList(),
-            title
+            title,
+            null,
+            creationDate
         )
     }
 
@@ -42,7 +47,8 @@ data class JobOffer(
             virtual,
             organizationId,
             imageUrl,
-            title
+            title,
+            creationDate.toStringDate()
         )
     }
 }
