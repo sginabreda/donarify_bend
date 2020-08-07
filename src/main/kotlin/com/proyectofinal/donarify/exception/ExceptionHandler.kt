@@ -28,7 +28,13 @@ class ExceptionHandler : ResponseEntityExceptionHandler() {
         return ResponseEntity(apiError, HttpStatus.BAD_REQUEST)
     }
 
-    override fun handleExceptionInternal(ex: Exception, body: Any?, headers: HttpHeaders, status: HttpStatus, request: WebRequest): ResponseEntity<Any> {
+    override fun handleExceptionInternal(
+        ex: Exception,
+        body: Any?,
+        headers: HttpHeaders,
+        status: HttpStatus,
+        request: WebRequest
+    ): ResponseEntity<Any> {
         val errorDetails = ApiError("One or more parameters is either missing or incorrect", "bad.request")
         return ResponseEntity(errorDetails, HttpStatus.BAD_REQUEST)
     }

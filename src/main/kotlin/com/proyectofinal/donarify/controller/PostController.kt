@@ -31,6 +31,7 @@ class PostController(private val service: PostService) {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
+    @PreAuthorize("hasAuthority('ORGANIZATION')")
     fun createPost(@RequestBody postRequestDto: PostRequestDto): String {
         return service.createPost(postRequestDto.toDomain())
     }
