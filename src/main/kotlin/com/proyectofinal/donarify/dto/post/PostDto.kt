@@ -20,5 +20,6 @@ abstract class PostDto(
     open val fulltime: Boolean,
     open val virtual: Boolean,
     open val imageUrl: String?,
-    open val title: String
+    open val title: String,
+    open val creationDate: String
 )

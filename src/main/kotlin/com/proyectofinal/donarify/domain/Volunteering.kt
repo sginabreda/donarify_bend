@@ -2,6 +2,9 @@ package com.proyectofinal.donarify.domain
 
 import com.proyectofinal.donarify.dto.post.VolunteeringDto
 import com.proyectofinal.donarify.repository.model.VolunteeringModel
+import com.proyectofinal.donarify.util.toStringDate
+import java.time.Instant
+import java.util.Date
 
 data class Volunteering(
     override val id: Long,
@@ -13,8 +16,9 @@ data class Volunteering(
     override val virtual: Boolean,
     override val imageUrl: String?,
     override val title: String,
-    val subType: VolunteeringType
-) : Post(id, description, address, organizationId, temporal, fulltime, virtual, imageUrl, title) {
+    val subType: VolunteeringType,
+    override val creationDate: Date
+) : Post(id, description, address, organizationId, temporal, fulltime, virtual, imageUrl, title, creationDate) {
 
     override fun toModel(organization: Organization): VolunteeringModel {
         return VolunteeringModel(
@@ -29,7 +33,8 @@ data class Volunteering(
             imageUrl,
             emptyList(),
             title,
-            subType.value
+            subType.value,
+            Date.from(Instant.now())
         )
     }
 
@@ -44,7 +49,8 @@ data class Volunteering(
             organizationId,
             imageUrl,
             title,
-            subType.name
+            subType.name,
+            creationDate.toStringDate()
         )
     }
 }

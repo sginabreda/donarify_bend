@@ -2,6 +2,7 @@ package com.proyectofinal.donarify.repository.model
 
 import com.fasterxml.jackson.annotation.JsonBackReference
 import com.proyectofinal.donarify.domain.Post
+import java.util.Date
 import javax.persistence.Column
 import javax.persistence.DiscriminatorColumn
 import javax.persistence.DiscriminatorType
@@ -60,6 +61,9 @@ abstract class PostModel {
 
     @Column(name = "sub_type")
     open var subType: Long? = null
+
+    @Column(name = "creation_date")
+    open lateinit var creationDate: Date
 
     abstract fun toDomain(): Post
 }

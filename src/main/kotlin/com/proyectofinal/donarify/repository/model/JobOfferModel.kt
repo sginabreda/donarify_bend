@@ -2,6 +2,7 @@ package com.proyectofinal.donarify.repository.model
 
 import com.fasterxml.jackson.annotation.JsonBackReference
 import com.proyectofinal.donarify.domain.JobOffer
+import java.util.Date
 import javax.persistence.Column
 import javax.persistence.DiscriminatorValue
 import javax.persistence.Entity
@@ -40,10 +41,11 @@ data class JobOfferModel(
     @OneToMany(mappedBy = "post_id", fetch = FetchType.LAZY)
     override var interests: List<PostInterestModel> = listOf(),
     override var title: String,
-    override var subType: Long? = null
+    override var subType: Long? = null,
+    override var creationDate: Date
 ) : PostModel() {
 
     override fun toDomain(): JobOffer {
-        return JobOffer(id, description, address, organization.id, temporal, fulltime, virtual, imageUrl, title)
+        return JobOffer(id, description, address, organization.id, temporal, fulltime, virtual, imageUrl, title, creationDate)
     }
 }
