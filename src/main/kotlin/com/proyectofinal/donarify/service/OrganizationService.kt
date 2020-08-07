@@ -4,6 +4,7 @@ import com.proyectofinal.donarify.domain.Organization
 import com.proyectofinal.donarify.exception.RequestException
 import com.proyectofinal.donarify.repository.OrganizationRepository
 import com.proyectofinal.donarify.repository.model.OrganizationModel
+import org.springframework.data.repository.findByIdOrNull
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
 
@@ -32,13 +33,8 @@ class OrganizationService(private val repository: OrganizationRepository) {
     }
 
     private fun getOneOrThrowException(id: Long): OrganizationModel {
-        val org: OrganizationModel
-        try {
-            org = repository.getOne(id)
-        } catch (e: Exception) {
-            throw RequestException("Organization not found", "not.found", HttpStatus.NOT_FOUND.value())
-        }
-        return org
+        return repository.findByIdOrNull(id)
+            ?: throw RequestException("Organization not found", "not.found", HttpStatus.NOT_FOUND.value())
     }
 
     private fun modifyAttributes(organization: Organization, organizationModel: OrganizationModel) {

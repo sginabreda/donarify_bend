@@ -14,6 +14,7 @@ import com.proyectofinal.donarify.mapper.toPostListDto
 import com.proyectofinal.donarify.service.PostService
 import org.springframework.http.HttpStatus
 import org.springframework.security.access.prepost.PreAuthorize
+import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
@@ -63,6 +64,12 @@ class PostController(private val service: PostService) {
     @ResponseStatus(HttpStatus.OK)
     fun modifyPost(@PathVariable id: Long, @RequestBody postRequestDto: PostRequestDto): String {
         return service.modifyPost(id, postRequestDto.toDomain())
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    fun deletePost(@PathVariable id: Long) {
+        return service.deletePost(id)
     }
 
     @PostMapping("/{id}/interests")

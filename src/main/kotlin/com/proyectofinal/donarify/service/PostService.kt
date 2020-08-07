@@ -11,6 +11,7 @@ import com.proyectofinal.donarify.repository.UserRepository
 import com.proyectofinal.donarify.repository.model.PostInterestModel
 import com.proyectofinal.donarify.repository.model.PostModel
 import org.springframework.dao.DataIntegrityViolationException
+import org.springframework.data.repository.findByIdOrNull
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
 
@@ -55,6 +56,11 @@ class PostService(
         return "Post updated!"
     }
 
+    fun deletePost(id: Long) {
+        val postModel = getOneOrThrowException(id)
+        return repository.delete(postModel)
+    }
+
     fun createInterest(postId: Long): String {
         val postModel = getOneOrThrowException(postId)
         val userModel = userRepository.findByUsername(ContextHelper.getLoggedUser())!!
@@ -70,13 +76,8 @@ class PostService(
     }
 
     private fun getOneOrThrowException(id: Long): PostModel {
-        val postModel: PostModel
-        try {
-            postModel = repository.getOne(id)
-        } catch (e: Exception) {
-            throw RequestException("Job Offer not found", "not.found", HttpStatus.NOT_FOUND.value())
-        }
-        return postModel
+        return repository.findByIdOrNull(id)
+            ?: throw RequestException("Post not found", "not.found", HttpStatus.NOT_FOUND.value())
     }
 
     private fun modifyAttributes(post: Post, postModel: PostModel) {
