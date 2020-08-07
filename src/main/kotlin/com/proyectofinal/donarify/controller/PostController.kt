@@ -27,7 +27,6 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("posts")
-@CrossOrigin
 class PostController(private val service: PostService) {
 
     @PostMapping

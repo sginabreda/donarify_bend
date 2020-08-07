@@ -29,7 +29,6 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("users")
-@CrossOrigin
 class UserController(
     private val authenticationManager: AuthenticationManager,
     private val service: UserService,
