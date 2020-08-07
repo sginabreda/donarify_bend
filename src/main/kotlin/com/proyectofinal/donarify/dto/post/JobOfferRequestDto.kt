@@ -1,6 +1,8 @@
 package com.proyectofinal.donarify.dto.post
 
 import com.proyectofinal.donarify.domain.JobOffer
+import java.time.Instant
+import java.util.Date
 
 data class JobOfferRequestDto(
     override val id: Long,
@@ -15,6 +17,9 @@ data class JobOfferRequestDto(
 ) : PostRequestDto(id, description, address, organizationId, temporal, fulltime, virtual, imageUrl, title) {
 
     override fun toDomain(): JobOffer {
-        return JobOffer(id, description, address, organizationId, temporal, fulltime, virtual, imageUrl, title)
+        return JobOffer(
+            id, description, address, organizationId, temporal, fulltime, virtual, imageUrl, title,
+            Date.from(Instant.now())
+        )
     }
 }

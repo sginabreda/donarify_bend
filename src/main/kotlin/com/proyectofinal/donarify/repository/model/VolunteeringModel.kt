@@ -18,7 +18,6 @@ import javax.persistence.Table
 
 @Entity
 @DiscriminatorValue("2")
-@Table(name = "posts", schema = "public")
 data class VolunteeringModel(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -3,7 +3,6 @@ package com.proyectofinal.donarify.domain
 import com.proyectofinal.donarify.dto.post.VolunteeringDto
 import com.proyectofinal.donarify.repository.model.VolunteeringModel
 import com.proyectofinal.donarify.util.toStringDate
-import java.time.Instant
 import java.util.Date
 
 data class Volunteering(
@@ -34,7 +33,7 @@ data class Volunteering(
             emptyList(),
             title,
             subType.value,
-            Date.from(Instant.now())
+            creationDate
         )
     }
 

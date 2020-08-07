@@ -17,7 +17,6 @@ import javax.persistence.Table
 
 @Entity
 @DiscriminatorValue("1")
-@Table(name = "posts", schema = "public")
 data class JobOfferModel(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

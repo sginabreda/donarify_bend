@@ -1,5 +1,8 @@
 package com.proyectofinal.donarify.dto.post
 
+import com.fasterxml.jackson.annotation.JsonInclude
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
 data class VolunteeringDto(
     override val id: Long,
     override val address: String,

@@ -4,7 +4,6 @@ import com.proyectofinal.donarify.dto.post.JobOfferDto
 import com.proyectofinal.donarify.repository.model.JobOfferModel
 import com.proyectofinal.donarify.repository.model.PostModel
 import com.proyectofinal.donarify.util.toStringDate
-import java.time.Instant
 import java.util.Date
 
 data class JobOffer(
@@ -34,7 +33,7 @@ data class JobOffer(
             emptyList(),
             title,
             null,
-            Date.from(Instant.now())
+            creationDate
         )
     }
 

@@ -1,8 +1,10 @@
 package com.proyectofinal.donarify.dto.organization
 
+import com.fasterxml.jackson.annotation.JsonInclude
 import com.proyectofinal.donarify.dto.post.JobOfferDto
 import com.proyectofinal.donarify.dto.post.VolunteeringDto
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 data class OrganizationDto(
     val id: Long,
     val name: String,
