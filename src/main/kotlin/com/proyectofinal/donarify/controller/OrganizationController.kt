@@ -6,7 +6,6 @@ import com.proyectofinal.donarify.dto.organization.OrganizationRequestDto
 import com.proyectofinal.donarify.mapper.toOrganizationListDto
 import com.proyectofinal.donarify.service.OrganizationService
 import org.springframework.http.HttpStatus
-import org.springframework.web.bind.annotation.CrossOrigin
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping

@@ -68,7 +68,7 @@ class SecurityConfig : WebSecurityConfigurerAdapter() {
         val config = CorsConfiguration()
         config.allowedOrigins = listOf("http://localhost:3000", "https://donarify.netlify.app")
         config.allowedMethods = listOf("GET", "POST", "PUT", "HEAD", "OPTIONS")
-        val source =  UrlBasedCorsConfigurationSource()
+        val source = UrlBasedCorsConfigurationSource()
         source.registerCorsConfiguration("/**", config)
         return source
     }
