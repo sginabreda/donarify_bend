@@ -1,6 +1,8 @@
 package com.proyectofinal.donarify.domain
 
+import com.proyectofinal.donarify.dto.organization.OrganizationCreationDto
 import com.proyectofinal.donarify.dto.organization.OrganizationDto
+import com.proyectofinal.donarify.dto.user.UserRequestDto
 import com.proyectofinal.donarify.repository.model.OrganizationModel
 
 data class Organization(
@@ -50,5 +52,50 @@ data class Organization(
             imageUrl = imageUrl,
             volunteerings = volunteerings.map { it.toDto() }
         )
+    }
+
+    companion object {
+        fun of(
+            id: Long? = null,
+            name: String,
+            description: String,
+            address: String,
+            activityType: String,
+            url: String? = null,
+            facebookUrl: String? = null,
+            twitterUrl: String? = null,
+            instagramUrl: String? = null,
+            email: String,
+            imageUrl: String? = null,
+            jobs: List<JobOffer> = listOf(),
+            volunteerings: List<Volunteering> = listOf()
+        ): Organization {
+            return Organization(
+                id = id,
+                name = name,
+                description = description,
+                address = address,
+                activityType = activityType,
+                url = url,
+                facebookUrl = facebookUrl,
+                twitterUrl = twitterUrl,
+                instagramUrl = instagramUrl,
+                email = email,
+                imageUrl = imageUrl,
+                jobs = jobs,
+                volunteerings = volunteerings
+            )
+        }
+
+        fun buildOrganization(orgCreation: OrganizationCreationDto, user: UserRequestDto): Organization {
+            return of(
+                name = orgCreation.name,
+                description = orgCreation.description,
+                address = user.address,
+                activityType = orgCreation.activityType,
+                email = user.username,
+                imageUrl = orgCreation.imageUrl
+            )
+        }
     }
 }

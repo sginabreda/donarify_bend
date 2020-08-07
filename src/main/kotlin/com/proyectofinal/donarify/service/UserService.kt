@@ -1,6 +1,7 @@
 package com.proyectofinal.donarify.service
 
 import com.proyectofinal.donarify.context.ContextHelper
+import com.proyectofinal.donarify.domain.Organization
 import com.proyectofinal.donarify.domain.PostInterest
 import com.proyectofinal.donarify.dto.user.UserRequestDto
 import com.proyectofinal.donarify.dto.user.UserUpdateDto
@@ -41,7 +42,7 @@ class UserService(
     fun saveUser(user: UserRequestDto): UserModel {
         var organization: OrganizationModel? = null
         if (user.userRole == SecurityRole.ORGANIZATION) {
-            organization = user.organization!!.toOrganization().toModel()
+            organization = Organization.buildOrganization(user.organization!!, user).toModel()
         }
         val userModel = UserModel(
             user.username,
@@ -72,10 +73,10 @@ class UserService(
     }
 
     private fun modifyAttributes(userModel: UserModel, userUpdateDto: UserUpdateDto) {
-        userModel.address = userUpdateDto.address
-        userModel.name = userUpdateDto.name
-        userModel.lastName = userUpdateDto.lastName
-        userModel.telephone = userUpdateDto.telephone
-        userModel.password = encoder.encode(userUpdateDto.password)
+        userUpdateDto.address?.let { userModel.address = it }
+        userUpdateDto.name?.let { userModel.name = it }
+        userUpdateDto.lastName?.let { userModel.lastName = it }
+        userUpdateDto.telephone?.let { userModel.telephone = it }
+        userUpdateDto.password?.let { userModel.password = it }
     }
 }

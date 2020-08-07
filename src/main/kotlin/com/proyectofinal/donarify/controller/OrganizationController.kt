@@ -19,12 +19,6 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping("organizations")
 class OrganizationController(private val service: OrganizationService) {
 
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    fun createOrganization(@RequestBody organizationDto: OrganizationRequestDto): String {
-        return service.createOrganization(organizationDto.toOrganization())
-    }
-
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     fun listOrganizations(): OrganizationListDto {
