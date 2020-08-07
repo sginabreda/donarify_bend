@@ -30,7 +30,8 @@ data class VolunteeringRequestDto(
             imageUrl,
             title,
             VolunteeringType.valueOf(subType),
-            Date.from(Instant.now())
+            Date.from(Instant.now()),
+            ""
         )
     }
 }

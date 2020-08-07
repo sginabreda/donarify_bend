@@ -44,6 +44,18 @@ data class JobOfferModel(
 ) : PostModel() {
 
     override fun toDomain(): JobOffer {
-        return JobOffer(id, description, address, organization.id, temporal, fulltime, virtual, imageUrl, title, creationDate)
+        return JobOffer.of(
+            id = id,
+            description = description,
+            address = address,
+            organizationId = organization.id,
+            temporal = temporal,
+            fulltime = fulltime,
+            virtual = virtual,
+            imageUrl = imageUrl,
+            title = title,
+            creationDate = creationDate,
+            organizationName = organization.name
+        )
     }
 }

@@ -16,8 +16,21 @@ data class Volunteering(
     override val imageUrl: String?,
     override val title: String,
     val subType: VolunteeringType,
-    override val creationDate: Date
-) : Post(id, description, address, organizationId, temporal, fulltime, virtual, imageUrl, title, creationDate) {
+    override val creationDate: Date,
+    override val organizationName: String
+) : Post(
+    id,
+    description,
+    address,
+    organizationId,
+    temporal,
+    fulltime,
+    virtual,
+    imageUrl,
+    title,
+    creationDate,
+    organizationName
+) {
 
     override fun toModel(organization: Organization): VolunteeringModel {
         return VolunteeringModel(
@@ -49,7 +62,39 @@ data class Volunteering(
             imageUrl,
             title,
             subType.name,
-            creationDate.toStringDate()
+            creationDate.toStringDate(),
+            organizationName
         )
+    }
+
+    companion object {
+        fun of(
+            id: Long,
+            description: String,
+            address: String,
+            organizationId: Long,
+            temporal: Boolean,
+            fulltime: Boolean,
+            virtual: Boolean,
+            imageUrl: String?,
+            title: String,
+            subType: VolunteeringType,
+            creationDate: Date,
+            organizationName: String
+        ): Volunteering {
+            return Volunteering(
+                id = id,
+                description = description,
+                address = address,
+                organizationId = organizationId,
+                temporal = temporal,
+                fulltime = fulltime,
+                virtual = virtual,
+                imageUrl = imageUrl,
+                title = title, subType = subType,
+                creationDate = creationDate,
+                organizationName = organizationName
+            )
+        }
     }
 }

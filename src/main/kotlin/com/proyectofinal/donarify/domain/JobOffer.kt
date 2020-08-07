@@ -16,8 +16,21 @@ data class JobOffer(
     override val virtual: Boolean,
     override val imageUrl: String?,
     override val title: String,
-    override val creationDate: Date
-) : Post(id, description, address, organizationId, temporal, fulltime, virtual, imageUrl, title, creationDate) {
+    override val creationDate: Date,
+    override val organizationName: String
+) : Post(
+    id,
+    description,
+    address,
+    organizationId,
+    temporal,
+    fulltime,
+    virtual,
+    imageUrl,
+    title,
+    creationDate,
+    organizationName
+) {
 
     override fun toModel(organization: Organization): PostModel {
         return JobOfferModel(
@@ -48,7 +61,38 @@ data class JobOffer(
             organizationId,
             imageUrl,
             title,
-            creationDate.toStringDate()
+            creationDate.toStringDate(),
+            organizationName
         )
+    }
+
+    companion object {
+        fun of(
+            id: Long,
+            description: String,
+            address: String,
+            organizationId: Long,
+            temporal: Boolean,
+            fulltime: Boolean,
+            virtual: Boolean,
+            imageUrl: String?,
+            title: String,
+            creationDate: Date,
+            organizationName: String
+        ): JobOffer {
+            return JobOffer(
+                id = id,
+                description = description,
+                address = address,
+                organizationId = organizationId,
+                temporal = temporal,
+                fulltime = fulltime,
+                virtual = virtual,
+                imageUrl = imageUrl,
+                title = title,
+                creationDate = creationDate,
+                organizationName = organizationName
+            )
+        }
     }
 }

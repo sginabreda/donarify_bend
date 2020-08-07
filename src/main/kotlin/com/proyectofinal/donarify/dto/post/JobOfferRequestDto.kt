@@ -19,7 +19,7 @@ data class JobOfferRequestDto(
     override fun toDomain(): JobOffer {
         return JobOffer(
             id, description, address, organizationId, temporal, fulltime, virtual, imageUrl, title,
-            Date.from(Instant.now())
+            Date.from(Instant.now()), ""
         )
     }
 }

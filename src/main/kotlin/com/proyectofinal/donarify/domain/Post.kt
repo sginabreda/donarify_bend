@@ -14,7 +14,8 @@ abstract class Post(
     open val virtual: Boolean,
     open val imageUrl: String?,
     open val title: String,
-    open val creationDate: Date
+    open val creationDate: Date,
+    open val organizationName: String
 ) {
     abstract fun toModel(organization: Organization): PostModel
 

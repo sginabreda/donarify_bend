@@ -45,18 +45,19 @@ data class VolunteeringModel(
 ) : PostModel() {
 
     override fun toDomain(): Volunteering {
-        return Volunteering(
-            id,
-            description,
-            address,
-            organization.id,
-            temporal,
-            fulltime,
-            virtual,
-            imageUrl,
-            title,
-            VolunteeringType.getVolunteeringType(subType!!),
-            creationDate
+        return Volunteering.of(
+            id = id,
+            description = description,
+            address = address,
+            organizationId = organization.id,
+            temporal = temporal,
+            fulltime = fulltime,
+            virtual = virtual,
+            imageUrl = imageUrl,
+            title = title,
+            subType = VolunteeringType.getVolunteeringType(subType!!),
+            creationDate = creationDate,
+            organizationName = organization.name
         )
     }
 }
