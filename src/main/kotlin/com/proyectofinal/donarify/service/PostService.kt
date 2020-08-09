@@ -24,7 +24,8 @@ class PostService(
 ) {
 
     fun createPost(post: Post): String {
-        val organization = orgService.getOrganization(post.organizationId)
+        val user = userRepository.findByUsername(ContextHelper.getLoggedUser())!!
+        val organization = orgService.getOrganization(user.organization!!.id)
         repository.save(post.toModel(organization))
         return "Post created!"
     }
