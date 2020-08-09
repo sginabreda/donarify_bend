@@ -103,5 +103,6 @@ class PostService(
         postModel.temporal = post.temporal
         postModel.virtual = post.virtual
         postModel.imageUrl = post.imageUrl
+        postModel.title = post.title
     }
 }
