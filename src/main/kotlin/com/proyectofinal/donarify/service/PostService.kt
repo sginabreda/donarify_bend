@@ -4,6 +4,7 @@ import com.proyectofinal.donarify.context.ContextHelper
 import com.proyectofinal.donarify.domain.Post
 import com.proyectofinal.donarify.domain.PostType
 import com.proyectofinal.donarify.domain.VolunteeringType
+import com.proyectofinal.donarify.dto.post.PostUpdateDto
 import com.proyectofinal.donarify.exception.RequestException
 import com.proyectofinal.donarify.repository.PostInterestRepository
 import com.proyectofinal.donarify.repository.PostRepository
@@ -65,7 +66,7 @@ class PostService(
         return postModel.toDomain()
     }
 
-    fun modifyPost(id: Long, post: Post): String {
+    fun modifyPost(id: Long, post: PostUpdateDto): String {
         val postModel = getOneOrThrowException(id)
         modifyAttributes(post, postModel)
         repository.save(postModel)
@@ -96,7 +97,7 @@ class PostService(
             ?: throw RequestException("Post not found", "not.found", HttpStatus.NOT_FOUND.value())
     }
 
-    private fun modifyAttributes(post: Post, postModel: PostModel) {
+    private fun modifyAttributes(post: PostUpdateDto, postModel: PostModel) {
         postModel.description = post.description
         postModel.address = post.address
         postModel.fulltime = post.fulltime
