@@ -1,6 +1,7 @@
 package com.proyectofinal.donarify.security
 
 import com.proyectofinal.donarify.service.UserService
+import java.util.Collections
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -24,10 +25,23 @@ class SecurityConfig : WebSecurityConfigurerAdapter() {
 
     @Autowired
     private lateinit var userService: UserService
+
     @Autowired
     private lateinit var jwtEntryPoint: JwtAuthenticationEntryPoint
+
     @Autowired
     private lateinit var jwtFilter: JwtFilter
+
+    private val permitMethods =
+        Collections.unmodifiableList(
+            listOf(
+                HttpMethod.GET.name,
+                HttpMethod.HEAD.name,
+                HttpMethod.POST.name,
+                HttpMethod.PUT.name,
+                HttpMethod.DELETE.name
+            )
+        )
 
     @Autowired
     fun configureGlobal(auth: AuthenticationManagerBuilder) {
@@ -46,7 +60,11 @@ class SecurityConfig : WebSecurityConfigurerAdapter() {
 
     override fun configure(http: HttpSecurity?) {
         http!!.cors()
-            .configurationSource { CorsConfiguration().applyPermitDefaultValues() }
+            .configurationSource {
+                val config = CorsConfiguration()
+                config.allowedMethods = permitMethods
+                config.applyPermitDefaultValues()
+            }
             .and()
             .csrf()
             .disable()
