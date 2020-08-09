@@ -55,6 +55,25 @@ class PostController(private val service: PostService) {
         return toPostListDto(service.listPosts(postType, organizationId, isTemporal, isFulltime, isVirtual, subtype))
     }
 
+    @GetMapping("/my-posts")
+    @ResponseStatus(HttpStatus.OK)
+    @PreAuthorize("hasAuthority('ORGANIZATION')")
+    fun listOwnPosts(
+        @RequestParam(value = "postType") type: String?,
+        @RequestParam(value = "temporal") temporal: String?,
+        @RequestParam(value = "fulltime") fulltime: String?,
+        @RequestParam(value = "virtual") virtual: String?,
+        @RequestParam(value = "subType") subType: String?
+    ): PostListDto {
+        val postType = type?.let { postTypeMapper[it] ?: throwError("postType") }
+        val isTemporal = temporal?.let { booleanMapper[it] ?: throwError("temporal") }
+        val isFulltime = fulltime?.let { booleanMapper[it] ?: throwError("fulltime") }
+        val isVirtual = virtual?.let { booleanMapper[it] ?: throwError("virtual") }
+        val subtype = subType?.let { subTypeMapper[it] ?: throwError("subType") }
+        validateParameters(postType, subtype)
+        return toPostListDto(service.listOwnPosts(postType, isTemporal, isFulltime, isVirtual, subtype))
+    }
+
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     fun getPost(@PathVariable id: Long): PostDto {
@@ -63,12 +82,14 @@ class PostController(private val service: PostService) {
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
+    @PreAuthorize("hasAuthority('ORGANIZATION')")
     fun modifyPost(@PathVariable id: Long, @RequestBody postRequestDto: PostRequestDto): String {
         return service.modifyPost(id, postRequestDto.toDomain())
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PreAuthorize("hasAuthority('ORGANIZATION')")
     fun deletePost(@PathVariable id: Long) {
         return service.deletePost(id)
     }

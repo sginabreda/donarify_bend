@@ -44,6 +44,21 @@ class PostService(
         return postList.map { it.toDomain() }
     }
 
+    fun listOwnPosts(
+        postType: PostType?,
+        temporal: Boolean?,
+        fulltime: Boolean?,
+        virtual: Boolean?,
+        subType: VolunteeringType?
+    ): List<Post> {
+        val userModel = userRepository.findByUsername(ContextHelper.getLoggedUser())!!
+        var postList = repository.findAllBy(postType?.value, userModel.organization!!.id, temporal, fulltime, virtual)
+        subType?.let {
+            postList = postList.filter { postModel -> postModel.subType == it.value }
+        }
+        return postList.map { it.toDomain() }
+    }
+
     fun getPost(id: Long): Post {
         val postModel = getOneOrThrowException(id)
         return postModel.toDomain()
