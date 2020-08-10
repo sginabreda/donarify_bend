@@ -1,6 +1,5 @@
 package com.proyectofinal.donarify.controller
 
-import com.proyectofinal.donarify.context.ContextHelper
 import com.proyectofinal.donarify.dto.post_interest.PostInterestListDto
 import com.proyectofinal.donarify.dto.user.JwtRequestDto
 import com.proyectofinal.donarify.dto.user.JwtResponseDto
@@ -57,10 +56,16 @@ class UserController(
         return toPostInterestListDto(service.getInterests())
     }
 
-    @PutMapping("/settings")
+    @GetMapping("/profile")
+    @ResponseStatus(HttpStatus.OK)
+    @PreAuthorize("hasAnyAuthority('USER','ORGANIZATION')")
+    fun getProfile(): UserDto {
+        return service.getProfile().toDto()
+    }
+
+    @PutMapping("/profile")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     fun modifyUser(@RequestBody userUpdateDto: UserUpdateDto): UserDto {
-        validateUser(userUpdateDto)
         return service.modifyUser(userUpdateDto).toDto()
     }
 
@@ -71,12 +76,6 @@ class UserController(
             throw RequestException("User is disabled", "disabled.user", HttpStatus.UNAUTHORIZED.value())
         } catch (e: BadCredentialsException) {
             throw RequestException("Invalid credentials", "invalid.credentials", HttpStatus.UNAUTHORIZED.value())
-        }
-    }
-
-    private fun validateUser(userUpdate: UserUpdateDto) {
-        if (userUpdate.username != ContextHelper.getLoggedUser()) {
-            throw RequestException("Invalid username", "invalid.username", HttpStatus.BAD_REQUEST.value())
         }
     }
 

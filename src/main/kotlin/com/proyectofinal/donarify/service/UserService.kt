@@ -65,6 +65,10 @@ class UserService(
         return list.map { it.toDomain() }
     }
 
+    fun getProfile(): UserModel {
+        return repository.findByUsername(ContextHelper.getLoggedUser())!!
+    }
+
     fun modifyUser(userUpdateDto: UserUpdateDto): UserModel {
         val user = repository.findByUsername(ContextHelper.getLoggedUser())
         modifyAttributes(user!!, userUpdateDto)
