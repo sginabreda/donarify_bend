@@ -43,7 +43,7 @@ data class UserModel(
     var id: Long = 0
 
     fun toDto(): UserDto {
-        return UserDto(username, password, name, lastName, address, telephone)
+        return UserDto(username, password, name, lastName, address, telephone, organization?.toOrganization()?.toDto())
     }
 
     companion object {
