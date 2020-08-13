@@ -1,7 +1,9 @@
 package com.proyectofinal.donarify.controller
 
+import com.proyectofinal.donarify.domain.ActivityType
 import com.proyectofinal.donarify.domain.PostType
 import com.proyectofinal.donarify.domain.VolunteeringType
+import com.proyectofinal.donarify.dto.post.ActivityTypeDto
 import com.proyectofinal.donarify.dto.post.PostDto
 import com.proyectofinal.donarify.dto.post.PostListDto
 import com.proyectofinal.donarify.dto.post.PostRequestDto
@@ -100,6 +102,12 @@ class PostController(private val service: PostService) {
     @PreAuthorize("hasAuthority('USER')")
     fun createInterest(@PathVariable id: Long): String {
         return service.createInterest(id)
+    }
+
+    @GetMapping("/types")
+    @ResponseStatus(HttpStatus.OK)
+    fun getActivityTypes(): List<ActivityTypeDto> {
+        return ActivityType.values().map { ActivityTypeDto(it.name, it.label) }
     }
 
     private fun validateParameters(postType: PostType?, subType: VolunteeringType?) {
