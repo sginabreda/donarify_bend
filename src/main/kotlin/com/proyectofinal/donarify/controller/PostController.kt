@@ -107,7 +107,7 @@ class PostController(private val service: PostService) {
     @GetMapping("/types")
     @ResponseStatus(HttpStatus.OK)
     fun getActivityTypes(): List<ActivityTypeDto> {
-        return ActivityType.values().map { ActivityTypeDto(it.name, it.label) }
+        return ActivityType.values().map { ActivityTypeDto(it.name, it.label) }.plus(ActivityTypeDto("", ""))
     }
 
     private fun validateParameters(postType: PostType?, subType: VolunteeringType?) {
