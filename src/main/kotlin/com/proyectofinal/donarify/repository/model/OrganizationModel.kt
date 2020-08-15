@@ -18,7 +18,7 @@ import org.hibernate.annotations.Where
 data class OrganizationModel(
     @Column(name = "name")
     var name: String,
-    @Column(name = "description")
+    @Column(name = "description", columnDefinition = "TEXT")
     var description: String,
     @OneToMany(mappedBy = "organization", fetch = FetchType.LAZY, targetEntity = JobOfferModel::class)
     @JsonManagedReference
