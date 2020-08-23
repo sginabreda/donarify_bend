@@ -11,13 +11,8 @@ import org.springframework.stereotype.Service
 @Service
 class OrganizationService(private val repository: OrganizationRepository) {
 
-    fun createOrganization(organization: Organization): String {
-        repository.save(organization.toModel())
-        return "Organization created!"
-    }
-
     fun listOrganizations(): List<Organization> {
-        return repository.findAll().map { it.toOrganization() }
+        return repository.findAll().map { it.toOrganization() }.sortedBy { it.id }
     }
 
     fun getOrganization(id: Long): Organization {
