@@ -30,6 +30,7 @@ dependencies {
     implementation("io.jsonwebtoken:jjwt:0.9.1")
     implementation("com.h2database:h2")
     implementation("org.postgresql:postgresql:42.2.2")
+    implementation("org.apache.tomcat:tomcat-jdbc")
     testImplementation("org.springframework.boot:spring-boot-starter-test") {
         exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
     }
