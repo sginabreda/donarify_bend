@@ -94,8 +94,7 @@ data class Organization(
                 address = user.address,
                 activityType = orgCreation.activityType,
                 email = user.username,
-                imageUrl = orgCreation.imageUrl,
-                url = orgCreation.url
+                imageUrl = orgCreation.imageUrl
             )
         }
     }

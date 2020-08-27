@@ -28,6 +28,9 @@ data class OrganizationModel(
     @JsonManagedReference
     @Where(clause = "type=2")
     var volunteerings: List<VolunteeringModel> = listOf(),
+    @OneToMany(mappedBy = "organization", fetch = FetchType.LAZY, targetEntity = CampaignModel::class)
+    @JsonManagedReference
+    var campaigns: List<CampaignModel> = listOf(),
     @Column(name = "address")
     var address: String,
     @Column(name = "activity_type")
