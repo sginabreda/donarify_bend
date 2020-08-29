@@ -6,6 +6,7 @@ import com.proyectofinal.donarify.dto.organization.OrganizationRequestDto
 import com.proyectofinal.donarify.mapper.toOrganizationListDto
 import com.proyectofinal.donarify.service.OrganizationService
 import org.springframework.http.HttpStatus
+import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PutMapping
@@ -32,6 +33,7 @@ class OrganizationController(private val service: OrganizationService) {
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
+    @PreAuthorize("hasAuthority('ORGANIZATION')")
     fun modifyOrganization(@PathVariable id: Long, @RequestBody organizationDto: OrganizationRequestDto): String {
         return service.modifyOrganization(id, organizationDto.toOrganization())
     }

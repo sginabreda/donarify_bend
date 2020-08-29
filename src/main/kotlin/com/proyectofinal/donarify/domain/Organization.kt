@@ -16,9 +16,7 @@ data class Organization(
     val twitterUrl: String?,
     val instagramUrl: String?,
     val email: String,
-    val imageUrl: String?,
-    val jobs: List<JobOffer> = listOf(),
-    val volunteerings: List<Volunteering> = listOf()
+    val imageUrl: String?
 ) {
     fun toModel(): OrganizationModel {
         return OrganizationModel.of(
@@ -41,7 +39,6 @@ data class Organization(
             id = id!!,
             name = name,
             description = description,
-            jobs = jobs.map { it.toDto() },
             address = address,
             activityType = activityType,
             url = url,
@@ -49,8 +46,7 @@ data class Organization(
             twitterUrl = twitterUrl,
             instagramUrl = instagramUrl,
             email = email,
-            imageUrl = imageUrl,
-            volunteerings = volunteerings.map { it.toDto() }
+            imageUrl = imageUrl
         )
     }
 
@@ -66,9 +62,7 @@ data class Organization(
             twitterUrl: String? = null,
             instagramUrl: String? = null,
             email: String,
-            imageUrl: String? = null,
-            jobs: List<JobOffer> = listOf(),
-            volunteerings: List<Volunteering> = listOf()
+            imageUrl: String? = null
         ): Organization {
             return Organization(
                 id = id,
@@ -81,9 +75,7 @@ data class Organization(
                 twitterUrl = twitterUrl,
                 instagramUrl = instagramUrl,
                 email = email,
-                imageUrl = imageUrl,
-                jobs = jobs,
-                volunteerings = volunteerings
+                imageUrl = imageUrl
             )
         }
 

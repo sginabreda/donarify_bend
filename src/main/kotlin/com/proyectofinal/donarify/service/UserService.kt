@@ -1,6 +1,7 @@
 package com.proyectofinal.donarify.service
 
 import com.proyectofinal.donarify.context.ContextHelper
+import com.proyectofinal.donarify.domain.Business
 import com.proyectofinal.donarify.domain.Organization
 import com.proyectofinal.donarify.domain.PostInterest
 import com.proyectofinal.donarify.dto.user.UserRequestDto
@@ -8,6 +9,7 @@ import com.proyectofinal.donarify.dto.user.UserUpdateDto
 import com.proyectofinal.donarify.exception.RequestException
 import com.proyectofinal.donarify.repository.PostInterestRepository
 import com.proyectofinal.donarify.repository.UserRepository
+import com.proyectofinal.donarify.repository.model.BusinessModel
 import com.proyectofinal.donarify.repository.model.OrganizationModel
 import com.proyectofinal.donarify.repository.model.UserModel
 import com.proyectofinal.donarify.security.SecurityRole
@@ -41,8 +43,11 @@ class UserService(
 
     fun saveUser(user: UserRequestDto): UserModel {
         var organization: OrganizationModel? = null
+        var business: BusinessModel? = null
         if (user.userRole == SecurityRole.ORGANIZATION) {
             organization = Organization.buildOrganization(user.organization!!, user).toModel()
+        } else if (user.userRole == SecurityRole.BUSINESS) {
+            business = Business.buildBusiness(user.business!!, user).toModel()
         }
         val userModel = UserModel(
             user.username,
@@ -53,7 +58,8 @@ class UserService(
             user.lastName,
             user.address,
             user.telephone,
-            organization
+            organization,
+            business
         )
         return repository.save(userModel)
     }

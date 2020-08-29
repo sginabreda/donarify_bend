@@ -42,7 +42,7 @@ class CampaignController(private val service: CampaignService) {
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PreAuthorize("hasAuthority('ORGANIZATION')")
-    fun deletePost(@PathVariable id: Long) {
+    fun deleteCampaign(@PathVariable id: Long) {
         return service.deleteCampaign(id)
     }
 }

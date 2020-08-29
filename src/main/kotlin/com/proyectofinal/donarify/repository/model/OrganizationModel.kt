@@ -55,12 +55,11 @@ data class OrganizationModel(
     @Column(name = "organization_id")
     var id: Long = 0
 
-    fun toOrganization(): Organization {
+    fun toDomain(): Organization {
         return Organization(
             id = id,
             name = name,
             description = description,
-            jobs = jobs.map { it.toDomain() },
             address = address,
             activityType = activityType,
             url = url,
@@ -68,8 +67,7 @@ data class OrganizationModel(
             twitterUrl = twitterUrl,
             instagramUrl = instagramUrl,
             email = email,
-            imageUrl = imageUrl,
-            volunteerings = volunteerings.map { it.toDomain() }
+            imageUrl = imageUrl
         )
     }
 

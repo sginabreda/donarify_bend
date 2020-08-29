@@ -58,13 +58,14 @@ class UserController(
 
     @GetMapping("/profile")
     @ResponseStatus(HttpStatus.OK)
-    @PreAuthorize("hasAnyAuthority('USER','ORGANIZATION')")
+    @PreAuthorize("hasAnyAuthority('USER','ORGANIZATION','BUSINESS')")
     fun getProfile(): UserDto {
         return service.getProfile().toDto()
     }
 
     @PutMapping("/profile")
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PreAuthorize("hasAnyAuthority('USER','ORGANIZATION','BUSINESS')")
     fun modifyUser(@RequestBody userUpdateDto: UserUpdateDto): UserDto {
         return service.modifyUser(userUpdateDto).toDto()
     }
@@ -82,6 +83,8 @@ class UserController(
     private fun validateBody(user: UserRequestDto) {
         if (user.userRole == SecurityRole.ORGANIZATION && user.organization == null) {
             throw RequestException("Organization data is required", "bad.request", HttpStatus.BAD_REQUEST.value())
+        } else if (user.userRole == SecurityRole.BUSINESS && user.business == null) {
+            throw RequestException("Business data is required", "bad.request", HttpStatus.BAD_REQUEST.value())
         }
     }
 }

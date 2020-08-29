@@ -12,12 +12,12 @@ import org.springframework.stereotype.Service
 class OrganizationService(private val repository: OrganizationRepository) {
 
     fun listOrganizations(): List<Organization> {
-        return repository.findAll().map { it.toOrganization() }.sortedBy { it.id }
+        return repository.findAll().map { it.toDomain() }.sortedBy { it.id }
     }
 
     fun getOrganization(id: Long): Organization {
         val organizationModel = getOneOrThrowException(id)
-        return organizationModel.toOrganization()
+        return organizationModel.toDomain()
     }
 
     fun modifyOrganization(id: Long, organization: Organization): String {

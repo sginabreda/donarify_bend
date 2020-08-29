@@ -35,7 +35,10 @@ data class UserModel(
     var telephone: String? = "",
     @OneToOne(cascade = [CascadeType.ALL])
     @JoinColumn(name = "organization_id", referencedColumnName = "organization_id")
-    val organization: OrganizationModel? = null
+    val organization: OrganizationModel? = null,
+    @OneToOne(cascade = [CascadeType.ALL])
+    @JoinColumn(name = "business_id", referencedColumnName = "business_id")
+    val business: BusinessModel? = null
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,7 +46,16 @@ data class UserModel(
     var id: Long = 0
 
     fun toDto(): UserDto {
-        return UserDto(username, password, name, lastName, address, telephone, organization?.toOrganization()?.toDto())
+        return UserDto(
+            username,
+            password,
+            name,
+            lastName,
+            address,
+            telephone,
+            organization?.toDomain()?.toDto(),
+            business?.toDomain()?.toDto()
+        )
     }
 
     companion object {
