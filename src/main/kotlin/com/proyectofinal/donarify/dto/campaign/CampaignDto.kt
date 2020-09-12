@@ -11,5 +11,7 @@ data class CampaignDto(
     val collectedAmount: BigDecimal,
     val endDate: Date,
     val creationDate: Date,
-    val organizationId: Long
+    val organizationId: Long,
+    val imageUrl: String?,
+    val organizationName: String
 )

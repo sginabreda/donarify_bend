@@ -32,7 +32,9 @@ data class CampaignModel(
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
     @JoinColumn(name = "organization_id", nullable = false)
-    var organization: OrganizationModel
+    var organization: OrganizationModel,
+    @Column(name = "image_url")
+    var imageUrl: String?
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,7 +42,18 @@ data class CampaignModel(
     var id: Long = 0
 
     fun toDomain(): Campaign {
-        return Campaign(id, title, description, amount, collectedAmount, endDate, creationDate, organization.id)
+        return Campaign(
+            id,
+            title,
+            description,
+            amount,
+            collectedAmount,
+            endDate,
+            creationDate,
+            organization.id,
+            imageUrl,
+            organization.name
+        )
     }
 
     companion object {
@@ -52,10 +65,20 @@ data class CampaignModel(
             collectedAmount: BigDecimal,
             endDate: Date,
             creationDate: Date,
-            organization: OrganizationModel
+            organization: OrganizationModel,
+            imageUrl: String?
         ): CampaignModel {
             val campaignModel =
-                CampaignModel(title, description, amount, collectedAmount, endDate, creationDate, organization)
+                CampaignModel(
+                    title,
+                    description,
+                    amount,
+                    collectedAmount,
+                    endDate,
+                    creationDate,
+                    organization,
+                    imageUrl
+                )
             id?.let { campaignModel.id = it }
             return campaignModel
         }

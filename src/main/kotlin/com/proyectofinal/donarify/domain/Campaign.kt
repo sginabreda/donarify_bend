@@ -13,7 +13,9 @@ data class Campaign(
     val collectedAmount: BigDecimal,
     val endDate: Date,
     val creationDate: Date,
-    val organizationId: Long
+    val organizationId: Long,
+    val imageUrl: String?,
+    val organizationName: String = ""
 ) {
     fun toModel(organization: Organization): CampaignModel {
         return CampaignModel.of(
@@ -24,11 +26,23 @@ data class Campaign(
             collectedAmount,
             endDate,
             creationDate,
-            organization.toModel()
+            organization.toModel(),
+            imageUrl
         )
     }
 
     fun toDto(): CampaignDto {
-        return CampaignDto(id!!, title, description, amount, collectedAmount, endDate, creationDate, organizationId)
+        return CampaignDto(
+            id!!,
+            title,
+            description,
+            amount,
+            collectedAmount,
+            endDate,
+            creationDate,
+            organizationId,
+            imageUrl,
+            organizationName
+        )
     }
 }

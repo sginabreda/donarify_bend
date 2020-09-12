@@ -11,9 +11,20 @@ data class CampaignCreationDto(
     val description: String = "",
     val amount: BigDecimal = BigDecimal.ZERO,
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    val endDate: Date = Date()
+    val endDate: Date = Date(),
+    val imageUrl: String?
 ) {
     fun toDomain(): Campaign {
-        return Campaign(null, title, description, amount, BigDecimal.ZERO, endDate, Date.from(Instant.now()), 0)
+        return Campaign(
+            null,
+            title,
+            description,
+            amount,
+            BigDecimal.ZERO,
+            endDate,
+            Date.from(Instant.now()),
+            0,
+            imageUrl
+        )
     }
 }
