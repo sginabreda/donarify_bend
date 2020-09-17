@@ -1,8 +1,8 @@
 package com.proyectofinal.donarify.dto.campaign
 
-import com.fasterxml.jackson.annotation.JsonFormat
 import com.proyectofinal.donarify.domain.Campaign
 import java.math.BigDecimal
+import java.text.SimpleDateFormat
 import java.time.Instant
 import java.util.Date
 
@@ -10,8 +10,7 @@ data class CampaignCreationDto(
     val title: String = "",
     val description: String = "",
     val amount: BigDecimal = BigDecimal.ZERO,
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    val endDate: Date = Date(),
+    val endDate: String,
     val imageUrl: String?
 ) {
     fun toDomain(): Campaign {
@@ -21,7 +20,7 @@ data class CampaignCreationDto(
             description,
             amount,
             BigDecimal.ZERO,
-            endDate,
+            SimpleDateFormat("yyyy-MM-dd").parse(endDate),
             Date.from(Instant.now()),
             0,
             imageUrl
