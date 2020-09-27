@@ -14,6 +14,7 @@ import com.proyectofinal.donarify.repository.model.OrganizationModel
 import com.proyectofinal.donarify.repository.model.UserModel
 import com.proyectofinal.donarify.security.SecurityRole
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.data.repository.findByIdOrNull
 import org.springframework.http.HttpStatus
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.userdetails.User
@@ -58,6 +59,7 @@ class UserService(
             user.lastName,
             user.address,
             user.telephone,
+            user.imageUrl,
             organization,
             business
         )
@@ -69,6 +71,16 @@ class UserService(
         val list = interestRepository.findAllByUser(user!!)
 
         return list.map { it.toDomain() }
+    }
+
+    fun deleteInterest(interestId: Long) {
+        val interest = interestRepository.findByIdOrNull(interestId) ?: throw RequestException(
+            "Interest not found",
+            "not.found",
+            HttpStatus.NOT_FOUND.value()
+        )
+
+        interestRepository.delete(interest)
     }
 
     fun getProfile(): UserModel {

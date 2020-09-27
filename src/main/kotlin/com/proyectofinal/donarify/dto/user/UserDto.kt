@@ -12,6 +12,7 @@ data class UserDto(
     val lastName: String?,
     val address: String?,
     val telephone: String?,
+    val imageUrl: String?,
     val organization: OrganizationDto?,
     val business: BusinessDto?
 )

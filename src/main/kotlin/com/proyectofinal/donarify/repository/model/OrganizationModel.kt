@@ -45,8 +45,6 @@ data class OrganizationModel(
     var instagramUrl: String?,
     @Column(name = "email")
     var email: String,
-    @Column(name = "image_url")
-    var imageUrl: String?,
     @OneToOne(mappedBy = "organization")
     var user: UserModel? = null
 ) {
@@ -67,7 +65,7 @@ data class OrganizationModel(
             twitterUrl = twitterUrl,
             instagramUrl = instagramUrl,
             email = email,
-            imageUrl = imageUrl
+            imageUrl = user?.imageUrl
         )
     }
 
@@ -82,8 +80,7 @@ data class OrganizationModel(
             facebookUrl: String?,
             twitterUrl: String?,
             instagramUrl: String?,
-            email: String,
-            imageUrl: String?
+            email: String
         ): OrganizationModel {
             val org = OrganizationModel(
                 name = name,
@@ -94,8 +91,7 @@ data class OrganizationModel(
                 facebookUrl = facebookUrl,
                 twitterUrl = twitterUrl,
                 instagramUrl = instagramUrl,
-                email = email,
-                imageUrl = imageUrl
+                email = email
             )
             id?.let { org.id = id }
             return org

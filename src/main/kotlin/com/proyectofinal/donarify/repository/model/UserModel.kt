@@ -33,6 +33,8 @@ data class UserModel(
     var address: String? = "",
     @Column(name = "telephone")
     var telephone: String? = "",
+    @Column(name = "image_url")
+    var imageUrl: String?,
     @OneToOne(cascade = [CascadeType.ALL])
     @JoinColumn(name = "organization_id", referencedColumnName = "organization_id")
     val organization: OrganizationModel? = null,
@@ -53,6 +55,7 @@ data class UserModel(
             lastName,
             address,
             telephone,
+            imageUrl,
             organization?.toDomain()?.toDto(),
             business?.toDomain()?.toDto()
         )
@@ -68,7 +71,8 @@ data class UserModel(
             lastName: String?,
             address: String?,
             telephone: String?,
-            organizationModel: OrganizationModel
+            organizationModel: OrganizationModel,
+            imageUrl: String?
         ): UserModel {
             return UserModel(
                 username = username,
@@ -79,7 +83,8 @@ data class UserModel(
                 lastName = lastName,
                 address = address,
                 telephone = telephone,
-                organization = organizationModel
+                organization = organizationModel,
+                imageUrl = imageUrl
             )
         }
     }

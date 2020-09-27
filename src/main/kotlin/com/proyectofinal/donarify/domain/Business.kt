@@ -19,7 +19,7 @@ data class Business(
     }
 
     fun toModel(): BusinessModel {
-        return BusinessModel.of(id, name, description, activityType, imageUrl, email, address)
+        return BusinessModel.of(id, name, description, activityType, email, address)
     }
 
     companion object {
@@ -49,8 +49,7 @@ data class Business(
                 description = businessCreation.description,
                 address = user.address,
                 activityType = businessCreation.activityType,
-                email = user.username,
-                imageUrl = businessCreation.imageUrl
+                email = user.username
             )
         }
     }

@@ -17,7 +17,9 @@ import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.BadCredentialsException
 import org.springframework.security.authentication.DisabledException
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
+import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -54,6 +56,13 @@ class UserController(
     @PreAuthorize("hasAuthority('USER')")
     fun getInterests(): PostInterestListDto {
         return toPostInterestListDto(service.getInterests())
+    }
+
+    @DeleteMapping("/interests/{interestId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PreAuthorize("hasAuthority('USER')")
+    fun deleteInterest(@PathVariable interestId: Long) {
+        return service.deleteInterest(interestId)
     }
 
     @GetMapping("/profile")

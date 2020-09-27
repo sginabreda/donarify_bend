@@ -20,11 +20,9 @@ data class BusinessModel(
     var address: String,
     @Column(name = "activity_type")
     var activityType: String,
-    @Column(name = "image_url")
-    var imageUrl: String?,
     @Column(name = "email")
     var email: String,
-    @OneToOne(mappedBy = "organization")
+    @OneToOne(mappedBy = "business")
     var user: UserModel? = null
 ) {
     @Id
@@ -33,7 +31,7 @@ data class BusinessModel(
     var id: Long = 0
 
     fun toDomain(): Business {
-        return Business(id, name, description, address, activityType, email, imageUrl)
+        return Business(id, name, description, address, activityType, email, user?.imageUrl)
     }
 
     companion object {
@@ -42,7 +40,6 @@ data class BusinessModel(
             name: String,
             description: String,
             activityType: String,
-            imageUrl: String?,
             email: String,
             address: String
         ): BusinessModel {
@@ -51,7 +48,6 @@ data class BusinessModel(
                     name = name,
                     description = description,
                     activityType = activityType,
-                    imageUrl = imageUrl,
                     email = email,
                     address = address
                 )

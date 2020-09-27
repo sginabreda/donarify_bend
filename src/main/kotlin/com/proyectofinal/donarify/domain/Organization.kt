@@ -29,8 +29,7 @@ data class Organization(
             facebookUrl,
             twitterUrl,
             instagramUrl,
-            email,
-            imageUrl
+            email
         )
     }
 
@@ -85,8 +84,7 @@ data class Organization(
                 description = orgCreation.description,
                 address = user.address,
                 activityType = orgCreation.activityType,
-                email = user.username,
-                imageUrl = orgCreation.imageUrl
+                email = user.username
             )
         }
     }
