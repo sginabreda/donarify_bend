@@ -53,14 +53,14 @@ class UserController(
 
     @GetMapping("/interests")
     @ResponseStatus(HttpStatus.OK)
-    @PreAuthorize("hasAuthority('USER')")
+    @PreAuthorize("hasAnyAuthority('USER','BUSINESS')")
     fun getInterests(): PostInterestListDto {
         return toPostInterestListDto(service.getInterests())
     }
 
     @DeleteMapping("/interests/{interestId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PreAuthorize("hasAuthority('USER')")
+    @PreAuthorize("hasAnyAuthority('USER','BUSINESS')")
     fun deleteInterest(@PathVariable interestId: Long) {
         return service.deleteInterest(interestId)
     }

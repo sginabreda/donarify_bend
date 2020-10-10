@@ -99,7 +99,7 @@ class PostController(private val service: PostService) {
 
     @PostMapping("/{id}/interests")
     @ResponseStatus(HttpStatus.CREATED)
-    @PreAuthorize("hasAuthority('USER')")
+    @PreAuthorize("hasAnyAuthority('USER','BUSINESS')")
     fun createInterest(@PathVariable id: Long): String {
         return service.createInterest(id)
     }
