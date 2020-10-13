@@ -33,7 +33,7 @@ data class UserModel(
     var address: String? = "",
     @Column(name = "telephone")
     var telephone: String? = "",
-    @Column(name = "image_url")
+    @Column(name = "image_url", columnDefinition = "TEXT")
     var imageUrl: String?,
     @OneToOne(cascade = [CascadeType.ALL])
     @JoinColumn(name = "organization_id", referencedColumnName = "organization_id")

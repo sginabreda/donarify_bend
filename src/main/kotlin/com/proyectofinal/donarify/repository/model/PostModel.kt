@@ -27,7 +27,7 @@ abstract class PostModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     open var id: Long = 0
 
-    @Column(name = "description")
+    @Column(name = "description", columnDefinition = "TEXT")
     open lateinit var description: String
 
     @Column(name = "address")
