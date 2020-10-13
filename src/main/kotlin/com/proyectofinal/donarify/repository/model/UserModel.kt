@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue
 import javax.persistence.GenerationType
 import javax.persistence.Id
 import javax.persistence.JoinColumn
+import javax.persistence.Lob
 import javax.persistence.OneToMany
 import javax.persistence.OneToOne
 import javax.persistence.Table
@@ -33,7 +34,8 @@ data class UserModel(
     var address: String? = "",
     @Column(name = "telephone")
     var telephone: String? = "",
-    @Column(name = "image_url", columnDefinition = "TEXT")
+    @Lob
+    @Column(name = "image_url", columnDefinition = "BLOB")
     var imageUrl: String?,
     @OneToOne(cascade = [CascadeType.ALL])
     @JoinColumn(name = "organization_id", referencedColumnName = "organization_id")
