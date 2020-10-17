@@ -2,7 +2,6 @@ package com.proyectofinal.donarify.repository.model
 
 import com.proyectofinal.donarify.dto.user.UserDto
 import com.proyectofinal.donarify.security.SecurityRole
-import org.hibernate.annotations.Type
 import javax.persistence.CascadeType
 import javax.persistence.Column
 import javax.persistence.Entity
@@ -15,6 +14,7 @@ import javax.persistence.Lob
 import javax.persistence.OneToMany
 import javax.persistence.OneToOne
 import javax.persistence.Table
+import org.hibernate.annotations.Type
 
 @Entity
 @Table(name = "users", schema = "public")
