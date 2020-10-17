@@ -2,6 +2,7 @@ package com.proyectofinal.donarify.repository.model
 
 import com.proyectofinal.donarify.dto.user.UserDto
 import com.proyectofinal.donarify.security.SecurityRole
+import org.hibernate.annotations.Type
 import javax.persistence.CascadeType
 import javax.persistence.Column
 import javax.persistence.Entity
@@ -35,7 +36,8 @@ data class UserModel(
     @Column(name = "telephone")
     var telephone: String? = "",
     @Lob
-    @Column(name = "image_url", columnDefinition = "BLOB")
+    @Column(name = "image_url")
+    @Type(type = "org.hibernate.type.BinaryType")
     var imageUrl: ByteArray?,
     @OneToOne(cascade = [CascadeType.ALL])
     @JoinColumn(name = "organization_id", referencedColumnName = "organization_id")
