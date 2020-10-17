@@ -6,6 +6,6 @@ data class PostUpdateDto(
     val fulltime: Boolean,
     val temporal: Boolean,
     val virtual: Boolean,
-    val imageUrl: String,
+    val imageUrl: ByteArray?,
     val title: String
 )

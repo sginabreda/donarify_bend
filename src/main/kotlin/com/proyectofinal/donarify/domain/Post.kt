@@ -12,7 +12,7 @@ abstract class Post(
     open val temporal: Boolean,
     open val fulltime: Boolean,
     open val virtual: Boolean,
-    open val imageUrl: String?,
+    open val imageUrl: ByteArray?,
     open val title: String,
     open val creationDate: Date,
     open val organizationName: String

@@ -5,5 +5,6 @@ data class UserUpdateDto(
     val name: String?,
     val lastName: String?,
     val address: String?,
-    val telephone: String?
+    val telephone: String?,
+    val imageUrl: ByteArray?
 )

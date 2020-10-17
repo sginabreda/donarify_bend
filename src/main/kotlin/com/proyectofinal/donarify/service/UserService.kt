@@ -100,5 +100,6 @@ class UserService(
         userUpdateDto.lastName?.let { userModel.lastName = it }
         userUpdateDto.telephone?.let { userModel.telephone = it }
         userUpdateDto.password?.let { userModel.password = it }
+        userUpdateDto.imageUrl?.let { userModel.imageUrl = it }
     }
 }

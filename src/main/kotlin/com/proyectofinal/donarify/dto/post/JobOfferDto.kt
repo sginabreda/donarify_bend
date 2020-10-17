@@ -11,7 +11,7 @@ data class JobOfferDto(
     override val temporal: Boolean,
     override val virtual: Boolean,
     override val organizationId: Long,
-    override val imageUrl: String?,
+    override val imageUrl: ByteArray?,
     override val title: String,
     override val creationDate: String,
     override val organizationName: String

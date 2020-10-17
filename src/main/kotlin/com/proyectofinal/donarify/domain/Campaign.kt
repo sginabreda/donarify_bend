@@ -14,7 +14,7 @@ data class Campaign(
     val endDate: Date,
     val creationDate: Date,
     val organizationId: Long,
-    val imageUrl: String?,
+    val imageUrl: ByteArray?,
     val organizationName: String = ""
 ) {
     fun toModel(organization: Organization): CampaignModel {

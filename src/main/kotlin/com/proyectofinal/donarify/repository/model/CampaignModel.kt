@@ -11,8 +11,10 @@ import javax.persistence.GeneratedValue
 import javax.persistence.GenerationType
 import javax.persistence.Id
 import javax.persistence.JoinColumn
+import javax.persistence.Lob
 import javax.persistence.ManyToOne
 import javax.persistence.Table
+import org.hibernate.annotations.Type
 
 @Entity
 @Table(name = "campaigns", schema = "public")
@@ -33,8 +35,10 @@ data class CampaignModel(
     @JsonBackReference
     @JoinColumn(name = "organization_id", nullable = false)
     var organization: OrganizationModel,
+    @Lob
     @Column(name = "image_url")
-    var imageUrl: String?
+    @Type(type = "org.hibernate.type.BinaryType")
+    var imageUrl: ByteArray?
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -66,7 +70,7 @@ data class CampaignModel(
             endDate: Date,
             creationDate: Date,
             organization: OrganizationModel,
-            imageUrl: String?
+            imageUrl: ByteArray?
         ): CampaignModel {
             val campaignModel =
                 CampaignModel(

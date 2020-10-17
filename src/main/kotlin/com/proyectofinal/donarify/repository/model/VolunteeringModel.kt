@@ -36,7 +36,7 @@ data class VolunteeringModel(
     @Column(name = "is_virtual")
     override var virtual: Boolean,
     override var type: Long,
-    override var imageUrl: String?,
+    override var imageUrl: ByteArray?,
     @OneToMany(mappedBy = "post_id", fetch = FetchType.LAZY)
     override var interests: List<PostInterestModel> = listOf(),
     override var title: String,

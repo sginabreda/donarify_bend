@@ -14,9 +14,11 @@ import javax.persistence.Id
 import javax.persistence.Inheritance
 import javax.persistence.InheritanceType
 import javax.persistence.JoinColumn
+import javax.persistence.Lob
 import javax.persistence.ManyToOne
 import javax.persistence.OneToMany
 import javax.persistence.Table
+import org.hibernate.annotations.Type
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -50,8 +52,10 @@ abstract class PostModel {
     @Column(name = "type", updatable = false, insertable = false)
     open var type: Long = 0
 
+    @Lob
     @Column(name = "image_url")
-    open var imageUrl: String? = ""
+    @Type(type = "org.hibernate.type.BinaryType")
+    open var imageUrl: ByteArray? = ByteArray(0)
 
     @OneToMany(mappedBy = "post", fetch = FetchType.LAZY)
     open var interests: List<PostInterestModel> = listOf()

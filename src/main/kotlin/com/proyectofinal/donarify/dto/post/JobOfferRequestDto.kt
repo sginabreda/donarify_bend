@@ -11,7 +11,7 @@ data class JobOfferRequestDto(
     override val fulltime: Boolean,
     override val temporal: Boolean,
     override val virtual: Boolean,
-    override val imageUrl: String?,
+    override val imageUrl: ByteArray?,
     override val title: String
 ) : PostRequestDto(id, description, address, temporal, fulltime, virtual, imageUrl, title) {
 

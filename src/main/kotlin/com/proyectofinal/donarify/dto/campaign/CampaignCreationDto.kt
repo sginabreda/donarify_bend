@@ -11,7 +11,7 @@ data class CampaignCreationDto(
     val description: String = "",
     val amount: BigDecimal = BigDecimal.ZERO,
     val endDate: String,
-    val imageUrl: String?
+    val imageUrl: ByteArray?
 ) {
     fun toDomain(): Campaign {
         return Campaign(

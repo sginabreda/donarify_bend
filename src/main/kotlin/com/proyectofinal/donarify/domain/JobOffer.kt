@@ -14,7 +14,7 @@ data class JobOffer(
     override val temporal: Boolean,
     override val fulltime: Boolean,
     override val virtual: Boolean,
-    override val imageUrl: String?,
+    override val imageUrl: ByteArray?,
     override val title: String,
     override val creationDate: Date,
     override val organizationName: String
@@ -75,7 +75,7 @@ data class JobOffer(
             temporal: Boolean,
             fulltime: Boolean,
             virtual: Boolean,
-            imageUrl: String?,
+            imageUrl: ByteArray?,
             title: String,
             creationDate: Date,
             organizationName: String
