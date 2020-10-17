@@ -16,7 +16,7 @@ data class Organization(
     val twitterUrl: String?,
     val instagramUrl: String?,
     val email: String,
-    val imageUrl: String?
+    val imageUrl: ByteArray?
 ) {
     fun toModel(): OrganizationModel {
         return OrganizationModel.of(
@@ -61,7 +61,7 @@ data class Organization(
             twitterUrl: String? = null,
             instagramUrl: String? = null,
             email: String,
-            imageUrl: String? = null
+            imageUrl: ByteArray? = null
         ): Organization {
             return Organization(
                 id = id,

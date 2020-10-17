@@ -12,8 +12,7 @@ data class OrganizationRequestDto(
     val url: String?,
     val facebookUrl: String?,
     val twitterUrl: String?,
-    val instagramUrl: String?,
-    val imageUrl: String?
+    val instagramUrl: String?
 ) {
     fun toOrganization(): Organization {
         return Organization(
@@ -27,7 +26,7 @@ data class OrganizationRequestDto(
             twitterUrl,
             instagramUrl,
             email,
-            imageUrl
+            null
         )
     }
 }

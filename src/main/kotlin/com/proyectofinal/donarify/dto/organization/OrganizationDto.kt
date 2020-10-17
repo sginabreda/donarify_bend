@@ -14,5 +14,5 @@ data class OrganizationDto(
     val twitterUrl: String?,
     val instagramUrl: String?,
     val email: String,
-    val imageUrl: String?
+    val imageUrl: ByteArray?
 )

@@ -11,7 +11,7 @@ data class BusinessDto(
     val address: String,
     val activityType: String,
     val email: String,
-    val imageUrl: String?
+    val imageUrl: ByteArray?
 ) {
     fun toDomain(): Business {
         return Business.of(id, name, description, activityType, imageUrl, email, address)

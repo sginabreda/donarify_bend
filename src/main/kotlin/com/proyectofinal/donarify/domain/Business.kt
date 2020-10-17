@@ -12,7 +12,7 @@ data class Business(
     val address: String,
     val activityType: String,
     val email: String,
-    val imageUrl: String?
+    val imageUrl: ByteArray?
 ) {
     fun toDto(): BusinessDto {
         return BusinessDto(id, name, description, address, activityType, email, imageUrl)
@@ -28,7 +28,7 @@ data class Business(
             name: String,
             description: String,
             activityType: String,
-            imageUrl: String? = null,
+            imageUrl: ByteArray? = null,
             email: String,
             address: String
         ): Business {

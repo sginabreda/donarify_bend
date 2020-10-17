@@ -12,7 +12,7 @@ data class UserRequestDto(
     val lastName: String,
     val address: String,
     val telephone: String,
-    val imageUrl: String?,
+    val imageUrl: ByteArray?,
     val organization: OrganizationCreationDto?,
     val business: BusinessCreationDto?
 )
