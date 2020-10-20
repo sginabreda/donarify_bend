@@ -1,5 +1,6 @@
 package com.proyectofinal.donarify.repository.model
 
+import com.proyectofinal.donarify.dto.user.UserDataDto
 import com.proyectofinal.donarify.dto.user.UserDto
 import com.proyectofinal.donarify.security.SecurityRole
 import javax.persistence.CascadeType
@@ -62,6 +63,12 @@ data class UserModel(
             imageUrl,
             organization?.toDomain()?.toDto(),
             business?.toDomain()?.toDto()
+        )
+    }
+
+    fun toDataDto(): UserDataDto {
+        return UserDataDto(
+            username, name, lastName, telephone
         )
     }
 

@@ -4,6 +4,7 @@ import com.proyectofinal.donarify.context.ContextHelper
 import com.proyectofinal.donarify.domain.Business
 import com.proyectofinal.donarify.domain.Organization
 import com.proyectofinal.donarify.domain.PostInterest
+import com.proyectofinal.donarify.dto.post.PostInterestsDto
 import com.proyectofinal.donarify.dto.user.UserRequestDto
 import com.proyectofinal.donarify.dto.user.UserUpdateDto
 import com.proyectofinal.donarify.exception.RequestException
@@ -92,6 +93,17 @@ class UserService(
         modifyAttributes(user!!, userUpdateDto)
 
         return repository.save(user)
+    }
+
+    fun getInterestedUsers(): List<PostInterestsDto> {
+        val user = repository.findByUsername(ContextHelper.getLoggedUser())
+        val interests = interestRepository.getInterestedUsers(user!!.organization!!).map { it.toDomain() }
+
+        return interests.groupBy { it.post.id }.map { entry ->
+            val post = entry.value.first().post
+            val users = entry.value.map { it.user.toDataDto() }
+            PostInterestsDto(post.toDto(), users)
+        }
     }
 
     private fun modifyAttributes(userModel: UserModel, userUpdateDto: UserUpdateDto) {

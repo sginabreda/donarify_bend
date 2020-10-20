@@ -32,6 +32,6 @@ data class PostInterestModel(
     var id: Long = 0
 
     fun toDomain(): PostInterest {
-        return PostInterest(id, post.toDomain())
+        return PostInterest(id, post.toDomain(), user)
     }
 }

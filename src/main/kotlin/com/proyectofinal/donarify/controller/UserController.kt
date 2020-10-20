@@ -1,5 +1,6 @@
 package com.proyectofinal.donarify.controller
 
+import com.proyectofinal.donarify.dto.post.PostInterestsListDto
 import com.proyectofinal.donarify.dto.post_interest.PostInterestListDto
 import com.proyectofinal.donarify.dto.user.JwtRequestDto
 import com.proyectofinal.donarify.dto.user.JwtResponseDto
@@ -77,6 +78,13 @@ class UserController(
     @PreAuthorize("hasAnyAuthority('USER','ORGANIZATION','BUSINESS')")
     fun modifyUser(@RequestBody userUpdateDto: UserUpdateDto): UserDto {
         return service.modifyUser(userUpdateDto).toDto()
+    }
+
+    @GetMapping("/post-interests")
+    @ResponseStatus(HttpStatus.OK)
+    @PreAuthorize("hasAuthority('ORGANIZATION')")
+    fun getInterestedUsers(): PostInterestsListDto {
+        return PostInterestsListDto(service.getInterestedUsers())
     }
 
     private fun authenticate(username: String, password: String) {
