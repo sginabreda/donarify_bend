@@ -2,10 +2,12 @@ package com.proyectofinal.donarify.service
 
 import com.proyectofinal.donarify.context.ContextHelper
 import com.proyectofinal.donarify.domain.Campaign
+import com.proyectofinal.donarify.dto.post.PostUpdateDto
 import com.proyectofinal.donarify.exception.RequestException
 import com.proyectofinal.donarify.repository.CampaignRepository
 import com.proyectofinal.donarify.repository.UserRepository
 import com.proyectofinal.donarify.repository.model.CampaignModel
+import com.proyectofinal.donarify.repository.model.PostModel
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
@@ -36,8 +38,24 @@ class CampaignService(
         return repository.delete(campaignModel)
     }
 
+    fun modifyCampaign(id: Long, campaign: Campaign): String {
+        val campaignModel = getOneOrThrowException(id)
+        modifyAttributes(campaign, campaignModel)
+        repository.save(campaignModel)
+
+        return "Campaign modified!"
+    }
+
     private fun getOneOrThrowException(id: Long): CampaignModel {
         return repository.findByIdOrNull(id)
             ?: throw RequestException("Organization not found", "not.found", HttpStatus.NOT_FOUND.value())
+    }
+
+    private fun modifyAttributes(campaign: Campaign, campaignModel: CampaignModel) {
+        campaignModel.title = campaign.title
+        campaignModel.description = campaign.description
+        campaignModel.amount = campaign.amount
+        campaignModel.endDate = campaign.endDate
+        campaign.imageUrl?.let { campaignModel.imageUrl = it }
     }
 }
