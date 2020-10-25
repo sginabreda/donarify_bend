@@ -73,6 +73,7 @@ class SecurityConfig : WebSecurityConfigurerAdapter() {
             .antMatchers(HttpMethod.GET, "/organizations/**").permitAll()
             .antMatchers(HttpMethod.GET, "/posts/**").permitAll()
             .antMatchers(HttpMethod.GET, "/campaigns/**").permitAll()
+            .antMatchers(HttpMethod.POST, "/campaigns/**/preferences").permitAll()
             .anyRequest().authenticated().and()
             .exceptionHandling().authenticationEntryPoint(jwtEntryPoint).and()
             .sessionManagement()

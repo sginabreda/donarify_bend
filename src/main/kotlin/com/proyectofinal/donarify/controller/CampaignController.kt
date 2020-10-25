@@ -3,6 +3,7 @@ package com.proyectofinal.donarify.controller
 import com.proyectofinal.donarify.dto.campaign.CampaignCreationDto
 import com.proyectofinal.donarify.dto.campaign.CampaignDto
 import com.proyectofinal.donarify.dto.campaign.CampaignListDto
+import com.proyectofinal.donarify.dto.campaign.DonationPreferenceDto
 import com.proyectofinal.donarify.mapper.toCampaignListDto
 import com.proyectofinal.donarify.service.CampaignService
 import org.springframework.http.HttpStatus
@@ -58,5 +59,11 @@ class CampaignController(private val service: CampaignService) {
     @ResponseStatus(HttpStatus.CREATED)
     fun donate(@PathVariable id: Long, @RequestBody donation: String): String {
         return "Donated!"
+    }
+
+    @PostMapping("/{id}/preferences")
+    @ResponseStatus(HttpStatus.OK)
+    fun generatePreferenceId(@PathVariable id: Long, @RequestBody body: DonationPreferenceDto): String {
+        return service.generatePreferenceId(id, body)
     }
 }
